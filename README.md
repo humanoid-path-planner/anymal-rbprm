@@ -1,0 +1,2 @@
+# anymal-rbprm
+File database for anymal robot using the hpp-rbprm framework
