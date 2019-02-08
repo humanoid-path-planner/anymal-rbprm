@@ -1,0 +1,28 @@
+<robot name="anymal_all">
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://anymal-rbprm/meshes/anymal_all_visual.dae"/>
+      </geometry>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+    <!--visual>
+      <origin xyz="0 0 -0.05" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://anymal-rbprm/meshes/anymal_trunk.stl"/>
+      </geometry>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual-->
+    <collision>
+      <origin xyz="0 0 -0.05" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://anymal-rbprm/meshes/anymal_trunk.stl"/>
+      </geometry>
+    </collision>
+  </link>
+</robot>

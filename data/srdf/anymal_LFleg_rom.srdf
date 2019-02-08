@@ -1,0 +1,19 @@
+<robot name="anymal_LFleg_rom">
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://anymal-rbprm/meshes/LFleg_vN_Rom.stl"/>
+      </geometry>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://anymal-rbprm/meshes/LFleg_vN_Rom.stl"/>
+      </geometry>
+    </collision>
+  </link>
+</robot>
