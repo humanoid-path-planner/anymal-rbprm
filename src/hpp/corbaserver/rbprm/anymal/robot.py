@@ -24,67 +24,57 @@ class Robot (Parent):
     ##
     #  Information to retrieve urdf and srdf files.
 
-    packageName = "hyq_description"
-    meshPackageName = "hyq_description"
+    packageName = "anymal_boxy_description"
+    meshPackageName = "anymal_boxy_description"
     rootJointType = "freeflyer"
-    urdfName = "hyq"
+    urdfName = "anymal_reachability"
     urdfSuffix = ""
     srdfSuffix = ""
 
     ## Information about the names of thes joints defining the limbs of the robot
-    rLegId = 'rfleg'
-    rleg = 'rf_haa_joint'
-    rfoot = 'rf_foot_joint'
-    lLegId = 'lfleg'
-    lleg = 'lf_haa_joint'
-    lfoot = 'lf_foot_joint'
-    lArmId = 'lhleg'
-    larm = 'lh_haa_joint'
-    lhand = 'lh_foot_joint'
-    rArmId = 'rhleg'
-    rarm = 'rh_haa_joint'
-    rhand = 'rh_foot_joint'
+    rLegId = 'RFleg'
+    rleg = 'RF_HAA'
+    rfoot = 'RF_CONTACT_2'
+    lLegId = 'LFleg'
+    lleg = 'LF_HAA'
+    lfoot = 'LF_CONTACT_2'
+    lArmId = 'LHleg'
+    larm = 'LH_HAA'
+    lhand = 'LH_CONTACT_2'
+    rArmId = 'RHleg'
+    rarm = 'RH_HAA'
+    rhand = 'RH_CONTACT_2'
 
 
-    referenceConfig =[0.,
-     0.,
-     0.6,
-     0.,
-     0.,
-     0.,
-     1.,
-    0, # LF
-    0.7853981633974483,
-    -1.5707963267948966,
-    0, # LH
-    -0.7853981633974483,
-    1.5707963267948966,
-    0, # RF
-    0.7853981633974483,
-    -1.5707963267948966,
-    0, # RH
-    -0.7853981633974483,
-    1.5707963267948966,
-]
+    referenceConfig =[0.,0.,0.444, 0.,0.,0.,1., # FF
+        0.04, 0.74, -1.08,0.34,-0.04,
+        0.04, -0.74, 1.08,-0.34,-0.04,
+        -0.04, 0.74, -1.08,0.34,0.04, 
+        -0.04, -0.74, 1.08,-0.34,0.04
+        ]
     
     # informations required to generate the limbs databases the limbs : 
-
-    offset = [0.,0.,-0.021]
+    nbSamples = 50000
+    octreeSize = 0.01
+    cType = "_3_DOF"
+    offset = [0.,0.,0.]
     normal = [0,0,1]
     legx = 0.02; legy = 0.02
-    kinematicConstraintsPath="package://hyq-rbprm/com_inequalities/"
+    kinematicConstraintsPath="package://anymal-rbprm/com_inequalities/"
     rLegKinematicConstraints=kinematicConstraintsPath+rleg+"_com_constraints.obj"
     lLegKinematicConstraints=kinematicConstraintsPath+lleg+"_com_constraints.obj" 
     rArmKinematicConstraints=kinematicConstraintsPath+rarm+"_com_constraints.obj" 
     lArmKinematicConstraints=kinematicConstraintsPath+larm+"_com_constraints.obj"
+    minDist = 0.2    
 
     # data used by scripts :
-    limbs_names = [rLegId,lLegId,rArmId,lArmId]
+    limbs_names = [rLegId,lArmId,lLegId,rArmId] # default order to try to remove contacts at the beginning of the contact plan
+    dict_limb_rootJoint = {rLegId:rleg, lLegId:lleg, rArmId:rarm, lArmId:larm}
     dict_limb_joint = {rLegId:rfoot, lLegId:lfoot, rArmId:rhand, lArmId:lhand}
     dict_limb_color_traj = {rfoot:[0,1,0,1], lfoot:[1,0,0,1],rhand:[0,0,1,1],lhand:[0.9,0.5,0,1]}
     FOOT_SAFETY_SIZE = 0.01
     # size of the contact surface (x,y)
-    dict_size={rfoot:[0.02 , 0.02], lfoot:[0.02 , 0.02],rhand:[0.02 , 0.02],lhand:[0.02 , 0.02]}
+    dict_size={rfoot:[0.031 , 0.031], lfoot:[0.031 , 0.031],rhand:[0.031 , 0.031],lhand:[0.031 , 0.031]}
 
     #various offset used by scripts
     MRsole_offset = SE3.Identity()
@@ -93,7 +83,7 @@ class Robot (Parent):
     MRhand_offset = MRsole_offset.copy()
     MLhand_offset = MRsole_offset.copy()
     dict_offset = {rfoot:MRsole_offset, lfoot:MLsole_offset, rhand:MRhand_offset, lhand:MLhand_offset}
-
+    dict_normal = {rfoot:normal, lfoot:normal, rhand:normal, lhand:normal}
     # display transform :
     MRsole_display = SE3.Identity()
     MLsole_display = SE3.Identity()
@@ -107,3 +97,11 @@ class Robot (Parent):
             self.loadFullBodyModel(self.urdfName, self.rootJointType, self.meshPackageName, self.packageName, self.urdfSuffix, self.srdfSuffix)
         if name != None:
             self.name = name
+
+    def loadAllLimbs(self,heuristic, analysis = None, nbSamples = nbSamples, octreeSize = octreeSize):
+        for id in self.limbs_names:
+            eff = self.dict_limb_joint[id]
+            self.addLimb(id,self.dict_limb_rootJoint[id],eff,self.dict_offset[eff].translation.T.tolist(),self.dict_normal[eff],self.dict_size[eff][0],self.dict_size[eff][1],nbSamples,heuristic,octreeSize,self.cType,kinematicConstraintsPath=self.kinematicConstraintsPath+self.dict_limb_rootJoint[id]+"_com_constraints.obj",kinematicConstraintsMin=self.minDist)
+            if analysis :
+                self.runLimbSampleAnalysis(id, analysis, True)
+        
