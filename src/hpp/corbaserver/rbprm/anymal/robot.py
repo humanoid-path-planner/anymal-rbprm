@@ -28,8 +28,8 @@ class Robot (Parent):
     meshPackageName = "anymal_description"
     rootJointType = "freeflyer"
     urdfName = "anymal"
-    urdfSuffix = "_reachability_old"
-    srdfSuffix = ""
+    urdfSuffix = "_reachability"
+    srdfSuffix = "_reachability"
 
     ## Information about the names of thes joints defining the limbs of the robot
     rLegId = 'RFleg'
@@ -47,17 +47,17 @@ class Robot (Parent):
 
 
     referenceConfig =[0.,0.,0.444, 0.,0.,0.,1., # FF
-        0.04, 0.74, -1.08,0.34,-0.04,#0.,
-        0.04, -0.74, 1.08,-0.34,-0.04,#0.,
-        -0.04, 0.74, -1.08,0.34,0.04, #0.,
-        -0.04, -0.74, 1.08,-0.34,0.04#,0.
+        0.04, 0.74, -1.08,0.34,-0.04,0.,
+        0.04, -0.74, 1.08,-0.34,-0.04,0.,
+        -0.04, 0.74, -1.08,0.34,0.04, 0.,
+        -0.04, -0.74, 1.08,-0.34,0.04,0.
         ]
     
     # informations required to generate the limbs databases the limbs : 
     nbSamples = 50000
     octreeSize = 0.01
     cType = "_3_DOF"
-    offset = [0.,0.,0.]
+    offset = [0.,0.,-0.33]
     normal = [0,0,1]
     legx = 0.02; legy = 0.02
     kinematicConstraintsPath="package://anymal-rbprm/com_inequalities/"
@@ -102,6 +102,7 @@ class Robot (Parent):
         for id in self.limbs_names:
             print "add limb : ",id
             eff = self.dict_limb_joint[id]
+            print "effector name = ",eff
             self.addLimb(id,self.dict_limb_rootJoint[id],eff,self.dict_offset[eff].translation.T.tolist()[0],self.dict_normal[eff],self.dict_size[eff][0]/2.,self.dict_size[eff][1]/2.,nbSamples,heuristic,octreeSize,self.cType,kinematicConstraintsPath=self.kinematicConstraintsPath+self.dict_limb_rootJoint[id]+"_com_constraints.obj",kinematicConstraintsMin=self.minDist)
             if analysis :
                 self.runLimbSampleAnalysis(id, analysis, True)
