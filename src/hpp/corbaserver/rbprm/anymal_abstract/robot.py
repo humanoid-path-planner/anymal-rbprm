@@ -32,10 +32,14 @@ class Robot (Parent):
     srdfSuffix = ""
 
     # TODO
-    ref_EE_lLeg = [0.3735, 0.207 , -0.57697]
-    ref_EE_rLeg = [0.3735, -0.207 , -0.57697]
-    ref_EE_lArm = [-0.3735, 0.207 , -0.57697]
-    ref_EE_rArm = [-0.3735, -0.207 , -0.57697]
+    ref_EE_lLeg =[0.373, 0.264, -0.448]
+    ref_EE_rLeg = [0.373, -0.264, -0.448]
+    ref_EE_lArm = [-0.373, 0.264, -0.448]
+    ref_EE_rArm = [-0.373, -0.264, -0.448]
+    #ref_EE_lLeg = [0.3, 0.165 , -0.44]
+    #ref_EE_rLeg = [0.3, -0.165 , -0.44]
+    #ref_EE_lArm = [-0.3, 0.165 , -0.44]
+    #ref_EE_rArm = [-0.3, -0.165 , -0.44]
 
     def __init__ (self, name = None, load = True):
         Parent.__init__ (self,load)
