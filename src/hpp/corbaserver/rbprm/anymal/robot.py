@@ -28,29 +28,29 @@ class Robot (Parent):
     meshPackageName = "anymal_description"
     rootJointType = "freeflyer"
     urdfName = "anymal"
-    urdfSuffix = "_reachability"
-    srdfSuffix = "_reachability"
+    urdfSuffix = "_reachability_old"
+    srdfSuffix = ""
 
     ## Information about the names of thes joints defining the limbs of the robot
     rLegId = 'RFleg'
     rleg = 'RF_HAA'
-    rfoot = 'RF_ADAPTER_TO_FOOT'
+    rfoot = 'RF_KFE'
     lLegId = 'LFleg'
     lleg = 'LF_HAA'
-    lfoot = 'LF_ADAPTER_TO_FOOT'
+    lfoot = 'LF_KFE'
     lArmId = 'LHleg'
     larm = 'LH_HAA'
-    lhand = 'LH_ADAPTER_TO_FOOT'
+    lhand = 'LH_KFE'
     rArmId = 'RHleg'
     rarm = 'RH_HAA'
-    rhand = 'RH_ADAPTER_TO_FOOT'
+    rhand = 'RH_KFE'
 
 
     referenceConfig =[0.,0.,0.444, 0.,0.,0.,1., # FF
-        0.04, 0.74, -1.08,0.34,-0.04,0.,
-        0.04, -0.74, 1.08,-0.34,-0.04,0.,
-        -0.04, 0.74, -1.08,0.34,0.04, 0.,
-        -0.04, -0.74, 1.08,-0.34,0.04,0.
+        0.04, 0.74, -1.08,0.34,-0.04,#0.,
+        0.04, -0.74, 1.08,-0.34,-0.04,#0.,
+        -0.04, 0.74, -1.08,0.34,0.04, #0.,
+        -0.04, -0.74, 1.08,-0.34,0.04#,0.
         ]
     
     # informations required to generate the limbs databases the limbs : 
@@ -100,6 +100,7 @@ class Robot (Parent):
 
     def loadAllLimbs(self,heuristic, analysis = None, nbSamples = nbSamples, octreeSize = octreeSize):
         for id in self.limbs_names:
+            print "add limb : ",id
             eff = self.dict_limb_joint[id]
             self.addLimb(id,self.dict_limb_rootJoint[id],eff,self.dict_offset[eff].translation.T.tolist()[0],self.dict_normal[eff],self.dict_size[eff][0]/2.,self.dict_size[eff][1]/2.,nbSamples,heuristic,octreeSize,self.cType,kinematicConstraintsPath=self.kinematicConstraintsPath+self.dict_limb_rootJoint[id]+"_com_constraints.obj",kinematicConstraintsMin=self.minDist)
             if analysis :
