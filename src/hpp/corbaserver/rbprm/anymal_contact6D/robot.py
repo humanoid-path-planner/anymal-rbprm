@@ -68,11 +68,6 @@ class Robot (Parent):
     normal = [0,0,1]
     legx = 0.02; legy = 0.02
     kinematicConstraintsPath="package://anymal-rbprm/com_inequalities/"
-    rLegKinematicConstraints=kinematicConstraintsPath+rleg+"_com_constraints.obj"
-    lLegKinematicConstraints=kinematicConstraintsPath+lleg+"_com_constraints.obj" 
-    rArmKinematicConstraints=kinematicConstraintsPath+rarm+"_com_constraints.obj" 
-    lArmKinematicConstraints=kinematicConstraintsPath+larm+"_com_constraints.obj"
-    minDist = 0.2    
 
     # data used by scripts :
     limbs_names = [rLegId,lArmId,lLegId,rArmId] # default order to try to remove contacts at the beginning of the contact plan
@@ -111,7 +106,7 @@ class Robot (Parent):
             print "add limb : ",id
             eff = self.dict_limb_joint[id]
             print "effector name = ",eff
-            self.addLimb(id,self.dict_limb_rootJoint[id],eff,self.dict_offset[eff].translation.T.tolist()[0],self.dict_normal[eff],self.dict_size[eff][0]/2.,self.dict_size[eff][1]/2.,nbSamples,heuristic,octreeSize,self.cType,kinematicConstraintsPath=self.kinematicConstraintsPath+self.dict_limb_rootJoint[id]+"_com_constraints.obj",kinematicConstraintsMin=self.minDist,limbOffset=self.dict_limb_offset[id])
+            self.addLimb(id,self.dict_limb_rootJoint[id],eff,self.dict_offset[eff].translation.T.tolist()[0],self.dict_normal[eff],self.dict_size[eff][0]/2.,self.dict_size[eff][1]/2.,nbSamples,heuristic,octreeSize,self.cType,kinematicConstraintsPath=self.kinematicConstraintsPath+self.dict_limb_rootJoint[id]+"06_com_constraints.obj",limbOffset=self.dict_limb_offset[id],kinematicConstraintsMin=self.minDist)
             if analysis :
                 self.runLimbSampleAnalysis(id, analysis, True)
         
