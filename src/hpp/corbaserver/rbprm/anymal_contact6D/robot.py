@@ -80,7 +80,7 @@ class Robot (Parent):
     FOOT_SAFETY_SIZE = 0.01
     # size of the contact surface (x,y)
     #dict_size={rfoot:[0.031 , 0.031], lfoot:[0.031 , 0.031],rhand:[0.031 , 0.031],lhand:[0.031 , 0.031]}
-    dict_size={rfoot:[0.02 , 0.02], lfoot:[0.02 , 0.02],rhand:[0.02 , 0.02],lhand:[0.02 , 0.02]}
+    dict_size={rfoot:[0.01 , 0.01], lfoot:[0.01 , 0.01],rhand:[0.01 , 0.01],lhand:[0.01 , 0.01]}
     #various offset used by scripts
     MRsole_offset = SE3.Identity()
     MRsole_offset.translation = np.matrix(offset).T
