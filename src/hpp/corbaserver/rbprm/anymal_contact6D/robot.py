@@ -53,6 +53,8 @@ class Robot (Parent):
         -0.04, -0.74, 1.08,-0.34,0.04,0.
         ]
     
+    reference_weights=[100.,1.,1.,0.,0.,0.]
+
     # informations required to generate the limbs databases the limbs : 
     nbSamples = 50000
     octreeSize = 0.01
