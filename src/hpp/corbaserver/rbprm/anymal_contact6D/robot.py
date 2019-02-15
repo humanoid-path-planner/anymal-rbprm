@@ -69,8 +69,11 @@ class Robot (Parent):
     legx = 0.02; legy = 0.02
     kinematicConstraintsPath="package://anymal-rbprm/com_inequalities/"
 
-    # data used by scripts :
-    limbs_names = [rLegId,lArmId,lLegId,rArmId] # default order to try to remove contacts at the beginning of the contact plan
+    minDist = 0.2 
+
+    # data used by scripts :,,,
+    #limbs_names = [rArmId,lLegId,lArmId,rLegId] # reverse default order to try to remove contacts at the beginning of the contact plan
+    limbs_names = [lLegId,rArmId,rLegId,lArmId] # default order to try to remove contacts at the beginning of the contact plan
     dict_limb_rootJoint = {rLegId:rleg, lLegId:lleg, rArmId:rarm, lArmId:larm}
     dict_limb_joint = {rLegId:rfoot, lLegId:lfoot, rArmId:rhand, lArmId:lhand}
     dict_limb_color_traj = {rfoot:[0,1,0,1], lfoot:[1,0,0,1],rhand:[0,0,1,1],lhand:[0.9,0.5,0,1]}
