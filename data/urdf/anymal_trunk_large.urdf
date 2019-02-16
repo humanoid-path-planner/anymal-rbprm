@@ -1,0 +1,32 @@
+<robot name="anymal_all">
+  <link name="base_link">
+  <inertial>
+     <mass value="30.47"/>
+     <inertia ixx="1." ixy="0.0" ixz="0.0" iyy="1." iyz="0.0" izz="1."/>
+  </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://anymal-rbprm/meshes/anymal_all_large_visual.dae"/>
+      </geometry>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+    <!--visual>
+      <origin xyz="0 0 -0.05" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://anymal-rbprm/meshes/anymal_trunk_large.stl"/>
+      </geometry>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual-->
+    <collision>
+      <origin xyz="0 0 -0.05" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://anymal-rbprm/meshes/anymal_trunk_large.stl"/>
+      </geometry>
+    </collision>
+  </link>
+</robot>

@@ -28,7 +28,7 @@ class Robot (Parent):
     urdfName = 'anymal_trunk'
     # URDF files describing the reachable workspace of each limb of HyQ
     urdfNameRom = ['anymal_RFleg_rom','anymal_LHleg_rom','anymal_LFleg_rom','anymal_RHleg_rom']
-    urdfSuffix = ""
+    urdfSuffix = "_large"
     srdfSuffix = ""
 
     # TODO
