@@ -25,10 +25,10 @@ class Robot (Parent):
     packageName = 'anymal-rbprm'
     meshPackageName = 'anymal-rbprm'
     # URDF file describing the trunk of the robot HyQ
-    urdfName = 'anymal_trunk'
+    urdfName = 'anymal_trunk_large'
     # URDF files describing the reachable workspace of each limb of HyQ
     urdfNameRom = ['anymal_RFleg_rom','anymal_LHleg_rom','anymal_LFleg_rom','anymal_RHleg_rom']
-    urdfSuffix = "_large"
+    urdfSuffix = ""
     srdfSuffix = ""
 
     # TODO
