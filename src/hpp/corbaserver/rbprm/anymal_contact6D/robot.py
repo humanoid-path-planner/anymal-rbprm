@@ -106,11 +106,20 @@ class Robot (Parent):
             self.name = name
 
     def loadAllLimbs(self,heuristic, analysis = None, nbSamples = nbSamples, octreeSize = octreeSize):
+        if isinstance(heuristic,basestring):#only one heuristic name given assign it to all the limbs
+            dict_heuristic = {}
+            for id in self.limbs_names:
+                dict_heuristic.update({id:heuristic})
+        elif isinstance(heuristic,dict):
+            dict_heuristic=heuristic
+        else : 
+            raise Exception("heuristic should be either a string or a map limbId:string")
+        #dict_heuristic = {self.rLegId:"static", self.lLegId:"static", self.rArmId:"fixedStep04", self.lArmId:"fixedStep04"}
         for id in self.limbs_names:
             print "add limb : ",id
             eff = self.dict_limb_joint[id]
             print "effector name = ",eff
-            self.addLimb(id,self.dict_limb_rootJoint[id],eff,self.dict_offset[eff].translation.T.tolist()[0],self.dict_normal[eff],self.dict_size[eff][0]/2.,self.dict_size[eff][1]/2.,nbSamples,heuristic,octreeSize,self.cType,kinematicConstraintsPath=self.kinematicConstraintsPath+self.dict_limb_rootJoint[id]+"06_com_constraints.obj",limbOffset=self.dict_limb_offset[id],kinematicConstraintsMin=self.minDist)
+            self.addLimb(id,self.dict_limb_rootJoint[id],eff,self.dict_offset[eff].translation.T.tolist()[0],self.dict_normal[eff],self.dict_size[eff][0]/2.,self.dict_size[eff][1]/2.,nbSamples,dict_heuristic[id],octreeSize,self.cType,kinematicConstraintsPath=self.kinematicConstraintsPath+self.dict_limb_rootJoint[id]+"06_com_constraints.obj",limbOffset=self.dict_limb_offset[id],kinematicConstraintsMin=self.minDist)
             if analysis :
                 self.runLimbSampleAnalysis(id, analysis, True)
         
