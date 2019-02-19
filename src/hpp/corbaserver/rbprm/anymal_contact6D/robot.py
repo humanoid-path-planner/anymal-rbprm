@@ -80,8 +80,8 @@ class Robot (Parent):
     dict_limb_color_traj = {rfoot:[0,1,0,1], lfoot:[1,0,0,1],rhand:[0,0,1,1],lhand:[0.9,0.5,0,1]}
     FOOT_SAFETY_SIZE = 0.01
     # size of the contact surface (x,y)
-    #dict_size={rfoot:[0.031 , 0.031], lfoot:[0.031 , 0.031],rhand:[0.031 , 0.031],lhand:[0.031 , 0.031]}
-    dict_size={rfoot:[0.01 , 0.01], lfoot:[0.01 , 0.01],rhand:[0.01 , 0.01],lhand:[0.01 , 0.01]}
+    dict_size={rfoot:[0.031 , 0.031], lfoot:[0.031 , 0.031],rhand:[0.031 , 0.031],lhand:[0.031 , 0.031]}
+    #dict_size={rfoot:[0.01 , 0.01], lfoot:[0.01 , 0.01],rhand:[0.01 , 0.01],lhand:[0.01 , 0.01]}
     #various offset used by scripts
     MRsole_offset = SE3.Identity()
     MRsole_offset.translation = np.matrix(offset).T
