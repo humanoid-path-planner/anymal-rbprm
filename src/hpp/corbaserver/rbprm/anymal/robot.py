@@ -63,7 +63,7 @@ class Robot (Parent):
     nbSamples = 50000
     octreeSize = 0.01
     cType = "_3_DOF"
-    offset = [0.,0.,-0.011]
+    offset = [0.,0.,-0.016]
 
     rLegLimbOffset = [0.373, 0.264, 0.]
     lLegLimbOffset = [0.373, -0.264,0.]
