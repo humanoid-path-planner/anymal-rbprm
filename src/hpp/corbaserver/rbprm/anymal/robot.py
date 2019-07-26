@@ -46,7 +46,7 @@ class Robot (Parent):
     rhand = 'RH_ADAPTER_TO_FOOT'
 
 
-    referenceConfig =[0.,0.,0.47, 0.,0.,0.,1., # FF
+    referenceConfig =[0.,0.,0.457, 0.,0.,0.,1., # FF
         0.04, 0.611, -1.0452,
         0.04, -0.853, 1.0847,
         -0.04, 0.74, -1.08,
@@ -63,7 +63,7 @@ class Robot (Parent):
     nbSamples = 50000
     octreeSize = 0.01
     cType = "_3_DOF"
-    offset = [0.,0.,-0.016]
+    offset = [0.,0.,-0.006]
 
     rLegLimbOffset = [0.373, 0.264, 0.]
     lLegLimbOffset = [0.373, -0.264,0.]
