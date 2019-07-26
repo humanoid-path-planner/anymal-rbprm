@@ -164,19 +164,19 @@ class Robot (Parent):
 
 
     def setVeryConstrainedJointsBounds(self):
-        self.setJointBounds('LF_HAA',[-1.,1.])
+        self.setJointBounds('LF_HAA',[-0.4,0.4])
         self.setJointBounds('LF_HFE',[0.2,0.95])
         self.setJointBounds('LF_KFE',[-2.35,0.])
 
-        self.setJointBounds('RF_HAA',[-1.,1.])
+        self.setJointBounds('RF_HAA',[-0.4,0.4])
         self.setJointBounds('RF_HFE',[0.2,0.95])
         self.setJointBounds('RF_KFE',[-2.35,0.])
 
-        self.setJointBounds('LH_HAA',[-1.,1.])
+        self.setJointBounds('LH_HAA',[-0.4,0.4])
         self.setJointBounds('LH_HFE',[-1.,-0.5])
         self.setJointBounds('LH_KFE',[0.,2.35])
 
-        self.setJointBounds('RH_HAA',[-1.,1.])
+        self.setJointBounds('RH_HAA',[-0.4,0.4])
         self.setJointBounds('RH_HFE',[-1.,-0.5])
         self.setJointBounds('RH_KFE',[0.,2.35])
 
