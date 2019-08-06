@@ -127,7 +127,7 @@ class Robot (Parent):
         self.RH_HFE_bounds = self.getJointBounds('RH_HFE')
         self.RH_HAA_bounds = self.getJointBounds('RH_KFE')
 
-    def loadAllLimbs(self,heuristic, analysis = None, nbSamples = nbSamples, octreeSize = octreeSize):
+    def loadAllLimbs(self,heuristic, analysis = None, nbSamples = nbSamples, octreeSize = octreeSize,disableEffectorCollision = False):
         if isinstance(heuristic,basestring):#only one heuristic name given assign it to all the limbs
             dict_heuristic = {}
             for id in self.limbs_names:
@@ -141,7 +141,7 @@ class Robot (Parent):
             print "add limb : ",id
             eff = self.dict_limb_joint[id]
             print "effector name = ",eff
-            self.addLimb(id,self.dict_limb_rootJoint[id],eff,self.dict_offset[eff].translation.T.tolist()[0],self.dict_normal[eff],self.dict_size[eff][0]/2.,self.dict_size[eff][1]/2.,nbSamples,dict_heuristic[id],octreeSize,self.cType,kinematicConstraintsPath=self.kinematicConstraintsPath+self.dict_limb_rootJoint[id]+"_06_com_constraints.obj",limbOffset=self.dict_limb_offset[id],kinematicConstraintsMin=self.minDist)
+            self.addLimb(id,self.dict_limb_rootJoint[id],eff,self.dict_offset[eff].translation.T.tolist()[0],self.dict_normal[eff],self.dict_size[eff][0]/2.,self.dict_size[eff][1]/2.,nbSamples,dict_heuristic[id],octreeSize,self.cType,disableEffectorCollision = disableEffectorCollision,kinematicConstraintsPath=self.kinematicConstraintsPath+self.dict_limb_rootJoint[id]+"_06_com_constraints.obj",limbOffset=self.dict_limb_offset[id],kinematicConstraintsMin=self.minDist)
             if analysis :
                 self.runLimbSampleAnalysis(id, analysis, True)
 
