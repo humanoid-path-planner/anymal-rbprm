@@ -76,10 +76,10 @@ class Robot (Parent):
         0.12,-0.724,1.082
        ]
     postureWeights=[0,0,0,0,0,0, #FF
-    100.,1.,1.,
-    100.,1.,1.,
-    100.,1.,1.,
-    100.,1.,1.,]
+    100.,1.,20.,
+    100.,1.,20.,
+    100.,1.,20.,
+    100.,1.,20.,]
 
     # informations required to generate the limbs databases the limbs : 
     nbSamples = 50000
