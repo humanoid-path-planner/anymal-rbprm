@@ -45,14 +45,36 @@ class Robot (Parent):
     rarm = 'RH_HAA'
     rhand = 'RH_ADAPTER_TO_FOOT'
 
-
-    referenceConfig =[0.,0.,0.465, 0.,0.,0.,1., # FF
+    
+    referenceConfig_asymetric =[0.,0.,0.461, 0.,0.,0.,1., # FF
         0.0, 0.611, -1.0452,
         0.0, -0.853, 1.0847,
         -0.0, 0.74, -1.08,
         -0.0, -0.74, 1.08,
         ]
     
+    """
+    referenceConfig=[0,0,0.448,0,0,0,1,
+        0.079,0.78,-1.1,
+        0.079,-0.78,1.1,
+        -0.079,0.78,-1.1,
+        -0.079,-0.78,1.1
+       ]
+    """    
+    """
+    referenceConfig=[0,0,0.448,0,0,0,1,
+        0.095,0.76,-1.074,
+        0.095,-0.76,1.074,
+        -0.095,0.76,-1.074,
+        -0.095,-0.76,1.074
+       ]
+    """
+    referenceConfig=[0,0,0.47,0,0,0,1,
+        -0.12,0.724,-1.082,
+        -0.12,-0.724,1.082,
+        0.12,0.724,-1.082,
+        0.12,-0.724,1.082
+       ]
     postureWeights=[0,0,0,0,0,0, #FF
     100.,1.,1.,
     100.,1.,1.,
@@ -61,9 +83,9 @@ class Robot (Parent):
 
     # informations required to generate the limbs databases the limbs : 
     nbSamples = 50000
-    octreeSize = 0.01
+    octreeSize = 0.002
     cType = "_3_DOF"
-    offset = [0.,0.,-0.006]
+    offset = [0.,0.,-0.005] # was 0.005
 
     rLegLimbOffset = [0.373, 0.264, 0.]
     lLegLimbOffset = [0.373, -0.264,0.]
