@@ -167,7 +167,7 @@ class Robot (Parent):
             if analysis :
                 self.runLimbSampleAnalysis(id, analysis, True)
 
-    def setConstrainedJointsBounds(self):
+    def setSlightlyConstrainedJointsBounds(self):
         self.setJointBounds('LF_HAA',[-1.,1.])
         self.setJointBounds('LF_HFE',[-0.25,2.35])
         self.setJointBounds('LF_KFE',[-2.35,0.])
@@ -185,20 +185,38 @@ class Robot (Parent):
         self.setJointBounds('RH_KFE',[0.,2.35])
 
 
-    def setVeryConstrainedJointsBounds(self):
-        self.setJointBounds('LF_HAA',[-0.4,0.4])
-        self.setJointBounds('LF_HFE',[0.2,0.95])
+    def setConstrainedJointsBounds(self):
+        self.setJointBounds('LF_HAA',[-0.6,0.6])
+        self.setJointBounds('LF_HFE',[0.25,1.])
         self.setJointBounds('LF_KFE',[-2.35,0.])
 
-        self.setJointBounds('RF_HAA',[-0.4,0.4])
-        self.setJointBounds('RF_HFE',[0.2,0.95])
+        self.setJointBounds('RF_HAA',[-0.6,0.6])
+        self.setJointBounds('RF_HFE',[0.25,1.])
         self.setJointBounds('RF_KFE',[-2.35,0.])
 
-        self.setJointBounds('LH_HAA',[-0.4,0.4])
+        self.setJointBounds('LH_HAA',[-0.6,0.6])
+        self.setJointBounds('LH_HFE',[-1.05,-0.45])
+        self.setJointBounds('LH_KFE',[0.,2.35])
+
+        self.setJointBounds('RH_HAA',[-0.6,0.6])
+        self.setJointBounds('RH_HFE',[-1.05,-0.45])
+        self.setJointBounds('RH_KFE',[0.,2.35])
+
+
+    def setVeryConstrainedJointsBounds(self):
+        self.setJointBounds('LF_HAA',[-0.35,0.05])
+        self.setJointBounds('LF_HFE',[0.3,0.95])
+        self.setJointBounds('LF_KFE',[-2.35,0.])
+
+        self.setJointBounds('RF_HAA',[-0.05,0.35])
+        self.setJointBounds('RF_HFE',[0.3,0.95])
+        self.setJointBounds('RF_KFE',[-2.35,0.])
+
+        self.setJointBounds('LH_HAA',[-0.35,0.05])
         self.setJointBounds('LH_HFE',[-1.,-0.5])
         self.setJointBounds('LH_KFE',[0.,2.35])
 
-        self.setJointBounds('RH_HAA',[-0.4,0.4])
+        self.setJointBounds('RH_HAA',[-0.05,0.35])
         self.setJointBounds('RH_HFE',[-1.,-0.5])
         self.setJointBounds('RH_KFE',[0.,2.35])
 
