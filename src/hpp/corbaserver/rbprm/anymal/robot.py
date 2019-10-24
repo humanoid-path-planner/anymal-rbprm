@@ -28,7 +28,8 @@ class Robot (Parent):
     meshPackageName = "anymal_data"
     rootJointType = "freeflyer"
     urdfName = "anymal"
-    urdfSuffix = ""
+    urdfSuffix = "_small_collision_feet"
+    #urdfSuffix="_ORI"
     srdfSuffix = ""
 
     ## Information about the names of thes joints defining the limbs of the robot
