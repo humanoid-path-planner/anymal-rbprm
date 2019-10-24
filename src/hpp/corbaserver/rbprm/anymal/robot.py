@@ -135,19 +135,19 @@ class Robot (Parent):
         # save original bounds of the urdf for futur reset
         self.LF_HAA_bounds = self.getJointBounds('LF_HAA')
         self.LF_HFE_bounds = self.getJointBounds('LF_HFE')
-        self.LF_HAA_bounds = self.getJointBounds('LF_KFE')
+        self.LF_KFE_bounds = self.getJointBounds('LF_KFE')
 
         self.RF_HAA_bounds = self.getJointBounds('RF_HAA')
         self.RF_HFE_bounds = self.getJointBounds('RF_HFE')
-        self.RF_HAA_bounds = self.getJointBounds('RF_KFE')
+        self.RF_KFE_bounds = self.getJointBounds('RF_KFE')
 
         self.LH_HAA_bounds = self.getJointBounds('LH_HAA')
         self.LH_HFE_bounds = self.getJointBounds('LH_HFE')
-        self.LH_HAA_bounds = self.getJointBounds('LH_KFE')
+        self.LH_KFE_bounds = self.getJointBounds('LH_KFE')
 
         self.RH_HAA_bounds = self.getJointBounds('RH_HAA')
         self.RH_HFE_bounds = self.getJointBounds('RH_HFE')
-        self.RH_HAA_bounds = self.getJointBounds('RH_KFE')
+        self.RH_KFE_bounds = self.getJointBounds('RH_KFE')
 
     def loadAllLimbs(self,heuristic, analysis = None, nbSamples = nbSamples, octreeSize = octreeSize,disableEffectorCollision = False):
         if isinstance(heuristic,basestring):#only one heuristic name given assign it to all the limbs
@@ -206,19 +206,19 @@ class Robot (Parent):
     def resetJointsBounds(self):
         self.setJointBounds('LF_HAA',self.LF_HAA_bounds)
         self.setJointBounds('LF_HFE',self.LF_HFE_bounds)
-        self.setJointBounds('LF_KFE',self.LF_HAA_bounds)
+        self.setJointBounds('LF_KFE',self.LF_KFE_bounds)
 
         self.setJointBounds('RF_HAA',self.RF_HAA_bounds)
         self.setJointBounds('RF_HFE',self.RF_HFE_bounds)
-        self.setJointBounds('RF_KFE',self.RF_HAA_bounds)
+        self.setJointBounds('RF_KFE',self.RF_KFE_bounds)
 
         self.setJointBounds('LH_HAA',self.LH_HAA_bounds)
         self.setJointBounds('LH_HFE',self.LH_HFE_bounds)
-        self.setJointBounds('LH_KFE',self.LH_HAA_bounds)
+        self.setJointBounds('LH_KFE',self.LH_KFE_bounds)
 
         self.setJointBounds('RH_HAA',self.RH_HAA_bounds)
         self.setJointBounds('RH_HFE',self.RH_HFE_bounds)
-        self.setJointBounds('RH_KFE',self.RH_HAA_bounds)
+        self.setJointBounds('RH_KFE',self.RH_KFE_bounds)
 
 
         
