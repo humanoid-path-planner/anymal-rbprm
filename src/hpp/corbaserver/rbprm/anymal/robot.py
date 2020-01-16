@@ -28,7 +28,8 @@ class Robot (Parent):
     meshPackageName = "anymal_data"
     rootJointType = "freeflyer"
     urdfName = "anymal"
-    urdfSuffix = ""
+    urdfSuffix = "_small_collision_feet"
+    #urdfSuffix="_ORI"
     srdfSuffix = ""
 
     ## Information about the names of thes joints defining the limbs of the robot
@@ -45,25 +46,47 @@ class Robot (Parent):
     rarm = 'RH_HAA'
     rhand = 'RH_ADAPTER_TO_FOOT'
 
-
-    referenceConfig =[0.,0.,0.457, 0.,0.,0.,1., # FF
-        0.04, 0.611, -1.0452,
-        0.04, -0.853, 1.0847,
-        -0.04, 0.74, -1.08,
-        -0.04, -0.74, 1.08,
+    
+    referenceConfig_asymetric =[0.,0.,0.461, 0.,0.,0.,1., # FF
+        0.0, 0.611, -1.0452,
+        0.0, -0.853, 1.0847,
+        -0.0, 0.74, -1.08,
+        -0.0, -0.74, 1.08,
         ]
     
+    """
+    referenceConfig=[0,0,0.448,0,0,0,1,
+        0.079,0.78,-1.1,
+        0.079,-0.78,1.1,
+        -0.079,0.78,-1.1,
+        -0.079,-0.78,1.1
+       ]
+    """    
+    """
+    referenceConfig=[0,0,0.448,0,0,0,1,
+        0.095,0.76,-1.074,
+        0.095,-0.76,1.074,
+        -0.095,0.76,-1.074,
+        -0.095,-0.76,1.074
+       ]
+    """
+    referenceConfig=[0,0,0.47,0,0,0,1,
+        -0.12,0.724,-1.082,
+        -0.12,-0.724,1.082,
+        0.12,0.724,-1.082,
+        0.12,-0.724,1.082
+       ]
     postureWeights=[0,0,0,0,0,0, #FF
-    100.,1.,1.,
-    100.,1.,1.,
-    100.,1.,1.,
-    100.,1.,1.,]
+    100.,1.,20.,
+    100.,1.,20.,
+    100.,1.,20.,
+    100.,1.,20.,]
 
     # informations required to generate the limbs databases the limbs : 
     nbSamples = 50000
-    octreeSize = 0.01
+    octreeSize = 0.002
     cType = "_3_DOF"
-    offset = [0.,0.,-0.006]
+    offset = [0.,0.,-0.005] # was 0.005
 
     rLegLimbOffset = [0.373, 0.264, 0.]
     lLegLimbOffset = [0.373, -0.264,0.]
@@ -113,19 +136,19 @@ class Robot (Parent):
         # save original bounds of the urdf for futur reset
         self.LF_HAA_bounds = self.getJointBounds('LF_HAA')
         self.LF_HFE_bounds = self.getJointBounds('LF_HFE')
-        self.LF_HAA_bounds = self.getJointBounds('LF_KFE')
+        self.LF_KFE_bounds = self.getJointBounds('LF_KFE')
 
         self.RF_HAA_bounds = self.getJointBounds('RF_HAA')
         self.RF_HFE_bounds = self.getJointBounds('RF_HFE')
-        self.RF_HAA_bounds = self.getJointBounds('RF_KFE')
+        self.RF_KFE_bounds = self.getJointBounds('RF_KFE')
 
         self.LH_HAA_bounds = self.getJointBounds('LH_HAA')
         self.LH_HFE_bounds = self.getJointBounds('LH_HFE')
-        self.LH_HAA_bounds = self.getJointBounds('LH_KFE')
+        self.LH_KFE_bounds = self.getJointBounds('LH_KFE')
 
         self.RH_HAA_bounds = self.getJointBounds('RH_HAA')
         self.RH_HFE_bounds = self.getJointBounds('RH_HFE')
-        self.RH_HAA_bounds = self.getJointBounds('RH_KFE')
+        self.RH_KFE_bounds = self.getJointBounds('RH_KFE')
 
     def loadAllLimbs(self,heuristic, analysis = None, nbSamples = nbSamples, octreeSize = octreeSize,disableEffectorCollision = False):
         if isinstance(heuristic,basestring):#only one heuristic name given assign it to all the limbs
@@ -145,7 +168,7 @@ class Robot (Parent):
             if analysis :
                 self.runLimbSampleAnalysis(id, analysis, True)
 
-    def setConstrainedJointsBounds(self):
+    def setSlightlyConstrainedJointsBounds(self):
         self.setJointBounds('LF_HAA',[-1.,1.])
         self.setJointBounds('LF_HFE',[-0.25,2.35])
         self.setJointBounds('LF_KFE',[-2.35,0.])
@@ -163,20 +186,38 @@ class Robot (Parent):
         self.setJointBounds('RH_KFE',[0.,2.35])
 
 
-    def setVeryConstrainedJointsBounds(self):
-        self.setJointBounds('LF_HAA',[-0.4,0.4])
-        self.setJointBounds('LF_HFE',[0.2,0.95])
+    def setConstrainedJointsBounds(self):
+        self.setJointBounds('LF_HAA',[-0.6,0.6])
+        self.setJointBounds('LF_HFE',[0.25,1.])
         self.setJointBounds('LF_KFE',[-2.35,0.])
 
-        self.setJointBounds('RF_HAA',[-0.4,0.4])
-        self.setJointBounds('RF_HFE',[0.2,0.95])
+        self.setJointBounds('RF_HAA',[-0.6,0.6])
+        self.setJointBounds('RF_HFE',[0.25,1.])
         self.setJointBounds('RF_KFE',[-2.35,0.])
 
-        self.setJointBounds('LH_HAA',[-0.4,0.4])
+        self.setJointBounds('LH_HAA',[-0.6,0.6])
+        self.setJointBounds('LH_HFE',[-1.05,-0.45])
+        self.setJointBounds('LH_KFE',[0.,2.35])
+
+        self.setJointBounds('RH_HAA',[-0.6,0.6])
+        self.setJointBounds('RH_HFE',[-1.05,-0.45])
+        self.setJointBounds('RH_KFE',[0.,2.35])
+
+
+    def setVeryConstrainedJointsBounds(self):
+        self.setJointBounds('LF_HAA',[-0.35,0.05])
+        self.setJointBounds('LF_HFE',[0.3,0.95])
+        self.setJointBounds('LF_KFE',[-2.35,0.])
+
+        self.setJointBounds('RF_HAA',[-0.05,0.35])
+        self.setJointBounds('RF_HFE',[0.3,0.95])
+        self.setJointBounds('RF_KFE',[-2.35,0.])
+
+        self.setJointBounds('LH_HAA',[-0.35,0.05])
         self.setJointBounds('LH_HFE',[-1.,-0.5])
         self.setJointBounds('LH_KFE',[0.,2.35])
 
-        self.setJointBounds('RH_HAA',[-0.4,0.4])
+        self.setJointBounds('RH_HAA',[-0.05,0.35])
         self.setJointBounds('RH_HFE',[-1.,-0.5])
         self.setJointBounds('RH_KFE',[0.,2.35])
 
@@ -184,19 +225,19 @@ class Robot (Parent):
     def resetJointsBounds(self):
         self.setJointBounds('LF_HAA',self.LF_HAA_bounds)
         self.setJointBounds('LF_HFE',self.LF_HFE_bounds)
-        self.setJointBounds('LF_KFE',self.LF_HAA_bounds)
+        self.setJointBounds('LF_KFE',self.LF_KFE_bounds)
 
         self.setJointBounds('RF_HAA',self.RF_HAA_bounds)
         self.setJointBounds('RF_HFE',self.RF_HFE_bounds)
-        self.setJointBounds('RF_KFE',self.RF_HAA_bounds)
+        self.setJointBounds('RF_KFE',self.RF_KFE_bounds)
 
         self.setJointBounds('LH_HAA',self.LH_HAA_bounds)
         self.setJointBounds('LH_HFE',self.LH_HFE_bounds)
-        self.setJointBounds('LH_KFE',self.LH_HAA_bounds)
+        self.setJointBounds('LH_KFE',self.LH_KFE_bounds)
 
         self.setJointBounds('RH_HAA',self.RH_HAA_bounds)
         self.setJointBounds('RH_HFE',self.RH_HFE_bounds)
-        self.setJointBounds('RH_KFE',self.RH_HAA_bounds)
+        self.setJointBounds('RH_KFE',self.RH_KFE_bounds)
 
 
         
