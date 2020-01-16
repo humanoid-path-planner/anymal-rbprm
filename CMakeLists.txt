@@ -20,20 +20,21 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
 SET(CXX_DISABLE_WERROR true)
 
+SET(PROJECT_NAME anymal-rbprm)
+SET(PROJECT_DESCRIPTION "Database for anymal robot using hpp-rbprm")
+SET(PROJECT_URL "")
+
 INCLUDE(cmake/base.cmake)
 INCLUDE(cmake/idl.cmake)
 INCLUDE(cmake/python.cmake)
 
-SET(PROJECT_NAME anymal-rbprm)
-SET(PROJECT_DESCRIPTION "Database for anymal robot using hpp-rbprm")
-SET(PROJECT_URL "")
 
 SET(CUSTOM_HEADER_DIR "hpp/anymal-rbprm")
 
 SETUP_PROJECT ()
 
 # search for python
-FINDPYTHON(2.7 EXACT REQUIRED)
+FINDPYTHON()
 
 PKG_CONFIG_APPEND_LIBS(${PROJECT_NAME})
 
