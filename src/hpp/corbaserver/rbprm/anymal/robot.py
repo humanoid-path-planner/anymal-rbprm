@@ -82,6 +82,8 @@ class Robot (Parent):
     100.,1.,20.,
     100.,1.,20.,]
 
+    DEFAULT_COM_HEIGHT = 0.445
+
     # informations required to generate the limbs databases the limbs : 
     nbSamples = 50000
     octreeSize = 0.002
