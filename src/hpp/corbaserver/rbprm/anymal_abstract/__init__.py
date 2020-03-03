@@ -2,4 +2,4 @@
 # Copyright (c) 2019 CNRS
 # Author : Pierre Fernbach
 
-from robot import Robot
+from .robot import Robot
