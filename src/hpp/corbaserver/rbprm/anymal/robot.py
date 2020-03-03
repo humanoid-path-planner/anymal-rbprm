@@ -82,6 +82,8 @@ class Robot (Parent):
     100.,1.,20.,
     100.,1.,20.,]
 
+    DEFAULT_COM_HEIGHT = 0.445
+
     # informations required to generate the limbs databases the limbs : 
     nbSamples = 50000
     octreeSize = 0.002
@@ -151,7 +153,7 @@ class Robot (Parent):
         self.RH_KFE_bounds = self.getJointBounds('RH_KFE')
 
     def loadAllLimbs(self,heuristic, analysis = None, nbSamples = nbSamples, octreeSize = octreeSize,disableEffectorCollision = False):
-        if isinstance(heuristic,basestring):#only one heuristic name given assign it to all the limbs
+        if isinstance(heuristic,str):#only one heuristic name given assign it to all the limbs
             dict_heuristic = {}
             for id in self.limbs_names:
                 dict_heuristic.update({id:heuristic})
