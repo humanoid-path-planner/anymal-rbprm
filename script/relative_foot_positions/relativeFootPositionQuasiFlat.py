@@ -16,6 +16,7 @@ NUM_SAMPLES = 18000
 IT_DISPLAY_PROGRESS = NUM_SAMPLES / 10
 MIN_DIST_BETWEEN_FEET_Y = 0.18
 MAX_DIST_BETWEEN_FEET_X = 0.35
+MAX_DIST_BETWEEN_FEET_Z = 0.35
 MIN_HEIGHT_COM = 0.3
 # margin used to constrain the com y position : if it's on the left of the left foot or on the right of the right foot
 # for more than this margin, we reject this sample:
@@ -75,7 +76,6 @@ points = [ {} for _ in effectors]
 for i, eff in enumerate(effectors):    
     for j, otherEff in enumerate(effectors):
         if i != j:
-            print ("otherEff", otherEff)
             points[i][otherEff] = []
             
 
@@ -163,26 +163,34 @@ def printFootPositionRelativeToOther(nbConfigs):
                     if otheridx != j:               
                         fullBody.setCurrentConfig(q)
                         pos_other = fullBody.getJointPosition(oeffectorName)
-
-                        qtr = q[:]
-                        qtr[:3] = [qtr[0] - pos_other[0], qtr[1] - pos_other[1], qtr[2] - pos_other[2]]
-                        fullBody.setCurrentConfig(qtr)
-                        qEffector = fullBody.getJointPosition(effectorName)
+                        pos = fullBody.getJointPosition(effectorName)
+                        p = array(pos_other[:3]) - array(pos[:3]).tolist()
+                        # ~ qtr = q[:]
+                        # ~ qtr[:3] = [qtr[0] - pos_other[0], qtr[1] - pos_other[1], qtr[2] - pos_other[2]]
+                        # ~ fullBody.setCurrentConfig(qtr)
+                        # ~ qEffector = fullBody.getJointPosition(effectorName)
 
                         # check current joint pos is now zero
-                        q0 = Quaternion(qEffector[6], qEffector[3], qEffector[4], qEffector[5])
-                        rot = q0.matrix()  # compute rotation matrix world -> local
-                        p = qEffector[0:3]  # (0,0,0) coordinate expressed in effector fram
-                        rm = np.zeros((4, 4))
-                        for k in range(0, 3):
-                            for l in range(0, 3):
-                                rm[k, l] = rot[k, l]
-                        for m in range(0, 3):
-                            rm[m, 3] = qEffector[m]
-                        rm[3, 3] = 1
-                        invrm = np.linalg.inv(rm)
-                        p = invrm.dot([0, 0, 0., 1])
-                        points[j][oeffectorName].append(p[:3])
+                        # ~ q0 = Quaternion(qEffector[6], qEffector[3], qEffector[4], qEffector[5])
+                        # ~ rot = q0.matrix()  # compute rotation matrix world -> local
+                        # ~ p = qEffector[0:3]  # (0,0,0) coordinate expressed in effector fram
+                        # ~ rm = np.zeros((4, 4))
+                        # ~ for k in range(0, 3):
+                            # ~ for l in range(0, 3):
+                                # ~ rm[k, l] = rot[k, l]
+                        # ~ for m in range(0, 3):
+                            # ~ rm[m, 3] = qEffector[m]
+                        # ~ rm[3, 3] = 1
+                        # ~ invrm = np.linalg.inv(rm)
+                        # ~ p = invrm.dot([0, 0, 0., 1])
+                        if (MAX_DIST_BETWEEN_FEET_Z > abs(p[2])):                            
+                            points[j][oeffectorName].append(p[:3])
+                        else:
+                            # ~ print ('rejecting ',effectorName, ' ', oeffectorName , p,  abs(p[2]))
+                            # ~ print ('pos_other', pos_other)
+                            # ~ print ('old_pos', old_pos)
+                            addCom = False
+                            v(q)
                         # ~ if (j == 0 and p[1] > MIN_DIST_BETWEEN_FEET_Y and abs(p[0]) < MAX_DIST_BETWEEN_FEET_X):
                             # ~ points[j].append(p[:3])
                         # ~ elif (j == 1 and p[1] < -MIN_DIST_BETWEEN_FEET_Y and abs(p[0]) < MAX_DIST_BETWEEN_FEET_X):
@@ -241,19 +249,26 @@ s = rbprmstate.State(fullBody, q = fullBody.getCurrentConfig(), limbsIncontact =
 #~ printRootPosition(lLegId, lfoot, nbSamples)
 #~ printRootPosition(rarmId, rHand, nbSamples)
 #~ printRootPosition(larmId, lHand, nbSamples) 
-printFootPositionRelativeToOther(10)
+printFootPositionRelativeToOther(10000)
 print ("successes ", success )
 print ("fails  ", fails      )
 
 
 # ~ for effector, comData, pointsData in zip(effectors, compoints, points):
-for effector, limbId, comData, pointsData in zip(effectors[:1],limbIds[1:], compoints[:1], points[:1]):
+# ~ for effector, limbId, comData, pointsData in zip(effectors[:1],limbIds[1:], compoints[:1], points[:1]):
+for effector, limbId, comData, pointsData in zip(effectors,limbIds, compoints, points):
     hcom = ConvexHull(comData)
-    hull_to_obj(hcom,comData,"anymal_COM_constraints_in_"+str(limbId)+"_effector_frame_quasi_static.obj")
+    hull_to_obj(hcom,comData,"anymal_COM_constraints_in_"+str(limbId)+"_effector_frame_quasi_static.obj") 
     fig = plt.figure()
-    axes = [221,222,223,224]
+    fig.suptitle("anymal_COM_constraints_in_"+str(limbId)+"_effector_frame_quasi_static.obj", fontsize=16)
+    plot_hull(hcom, comData, array(comData), color = "r", plot = False, fig = fig, ax = None)
+    
+    fig = plt.figure()
+    fig.suptitle(str(limbId), fontsize=16)
+    # ~ axes = [221,222,223,224]
     ax = None
-    for (oEffector, pts), axId in zip(pointsData.items(), axes):
+    # ~ for (oEffector, pts), axId in zip(pointsData.items(), axes):
+    for (oEffector, pts) in pointsData.items():
         # ~ ax = fig.add_subplot(axId, projection="3d")
         hpts = ConvexHull(pts)
         hull_to_obj(hpts,pts,"anymal_"+str(oEffector)+"_constraints_in_" +str(limbId)+".obj")
@@ -261,7 +276,7 @@ for effector, limbId, comData, pointsData in zip(effectors[:1],limbIds[1:], comp
         ax = plot_hull(hpts, pts, array(pts), color = "b", plot = False, fig = fig, ax = ax)
         print("effector ", limbId, )
         print("oEffector ", oEffector, )
-    plt.show()
+    plt.show(block = False)
     
 
 # ~ hcomRF = ConvexHull(compoints[0])
