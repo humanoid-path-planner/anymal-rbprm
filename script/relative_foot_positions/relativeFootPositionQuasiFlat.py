@@ -200,25 +200,27 @@ def printFootPositionRelativeToOther(nbConfigs):
             # now compute coms
 
             fullBody.setCurrentConfig(q)
-            com = fullBody.getCenterOfMass()
-            for x in range(0, 3):
-                q[x] = -com[x]
+            com = array(fullBody.getCenterOfMass())
+            # ~ for x in range(0, 3):
+                # ~ q[x] = -com[x]
             for j, effectorName in enumerate(effectors):
-                qEffector = fullBody.getJointPosition(effectorName)
-                q0 = Quaternion(qEffector[6], qEffector[3], qEffector[4], qEffector[5])
-                rot = q0.matrix()  # compute rotation matrix world -> local
-                p = qEffector[0:3]  # (0,0,0) coordinate expressed in effector fram
-                rm = np.zeros((4, 4))
-                for k in range(0, 3):
-                    for l in range(0, 3):
-                        rm[k, l] = rot[k, l]
-                for m in range(0, 3):
-                    rm[m, 3] = qEffector[m]
-                rm[3, 3] = 1
-                invrm = np.linalg.inv(rm)
-                p = invrm.dot([0, 0, 0, 1])
-                # add offset
-                rp = array(p[:3] - offsets[j]).tolist()
+                pos = fullBody.getJointPosition(effectorName)
+                rp = array(com) - array(pos[:3]).tolist()
+                # ~ qEffector = fullBody.getJointPosition(effectorName)
+                # ~ q0 = Quaternion(qEffector[6], qEffector[3], qEffector[4], qEffector[5])
+                # ~ rot = q0.matrix()  # compute rotation matrix world -> local
+                # ~ p = qEffector[0:3]  # (0,0,0) coordinate expressed in effector fram
+                # ~ rm = np.zeros((4, 4))
+                # ~ for k in range(0, 3):
+                    # ~ for l in range(0, 3):
+                        # ~ rm[k, l] = rot[k, l]
+                # ~ for m in range(0, 3):
+                    # ~ rm[m, 3] = qEffector[m]
+                # ~ rm[3, 3] = 1
+                # ~ invrm = np.linalg.inv(rm)
+                # ~ p = invrm.dot([0, 0, 0, 1])
+                # ~ # add offset
+                # ~ rp = array(p[:3] - offsets[j]).tolist()
 
                 if (rp[2] < MIN_HEIGHT_COM):
                     addCom = False
@@ -249,7 +251,7 @@ s = rbprmstate.State(fullBody, q = fullBody.getCurrentConfig(), limbsIncontact =
 #~ printRootPosition(lLegId, lfoot, nbSamples)
 #~ printRootPosition(rarmId, rHand, nbSamples)
 #~ printRootPosition(larmId, lHand, nbSamples) 
-printFootPositionRelativeToOther(10000)
+printFootPositionRelativeToOther(6000)
 print ("successes ", success )
 print ("fails  ", fails      )
 
