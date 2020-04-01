@@ -14,7 +14,8 @@ from pinocchio import Quaternion
 
 NUM_SAMPLES = 18000
 IT_DISPLAY_PROGRESS = NUM_SAMPLES / 10
-MIN_DIST_BETWEEN_FEET_Y = 0.18
+MIN_DIST_BETWEEN_FEET_Y = 0.10
+MIN_DIST_BETWEEN_FEET_X = 0.10
 MAX_DIST_BETWEEN_FEET_X = 0.35
 MAX_DIST_BETWEEN_FEET_Z = 0.35
 MIN_HEIGHT_COM = 0.3
@@ -94,8 +95,11 @@ def staticEq(positions, com):
         E[:2,i] = pos[:2]
     e = array([com[0], com[1], 1.])
     E[2,:] = ones(sizeX)
-    res = linprog(ones(sizeX), A_ub=None, b_ub=None, A_eq=E, b_eq=e, bounds=[(0.,1.) for _ in range(sizeX)], method='interior-point', callback=None, options={'presolve': True})
-    return res['success']
+    try:
+        res = linprog(ones(sizeX), A_ub=None, b_ub=None, A_eq=E, b_eq=e, bounds=[(0.,1.) for _ in range(sizeX)], method='interior-point', callback=None, options={'presolve': True})
+        return res['success']
+    except:
+        return False
         
 
 #returns true of one of the point is inside the convex hulls of the others. We do not want that
@@ -106,8 +110,10 @@ def pointInsideHull(positions):
             return True
     return False
 
-def genFlat():
+def genFlat(init = False):
         q = fullBody.shootRandomConfig()
+        if init:
+            q =  fullBody.referenceConfig[::]
         q[0:7] = zeroConf
         fullBody.setCurrentConfig(q)
         #~ v(q)
@@ -153,7 +159,7 @@ def printFootPositionRelativeToOther(nbConfigs):
     for i in range(0, nbConfigs):
         if i > 0 and not i % IT_DISPLAY_PROGRESS:
             print(int((i * 100) / nbConfigs), " % done")
-        q, succ, s, pos = genFlat()
+        q, succ, s, pos = genFlat(i==0)
         if succ:
             global success
             success += 1
@@ -182,11 +188,17 @@ def printFootPositionRelativeToOther(nbConfigs):
                             # ~ rm[m, 3] = qEffector[m]
                         # ~ rm[3, 3] = 1
                         # ~ invrm = np.linalg.inv(rm)
-                        # ~ p = invrm.dot([0, 0, 0., 1])
-                        if (MAX_DIST_BETWEEN_FEET_Z > abs(p[2])):                            
-                            points[j][oeffectorName].append(p[:3])
+                        # ~ p = invrm.dot([0, 0, 0., 1])                    
+                        if (MAX_DIST_BETWEEN_FEET_Z > abs(p[2])):       
+                            if  (MIN_DIST_BETWEEN_FEET_Y <= abs(p[1])):                
+                                if  (MIN_DIST_BETWEEN_FEET_X <= abs(p[0])): #this is not what we want to do in theory but it works well in fact               
+                                    points[j][oeffectorName].append(p[:3])
+                                else:
+                                    addCom = False
+                            else:
+                                addCom = False
                         else:
-                            # ~ print ('rejecting ',effectorName, ' ', oeffectorName , p,  abs(p[2]))
+                            print ('rejecting ',effectorName, ' ', oeffectorName , p,  abs(p[2]))
                             # ~ print ('pos_other', pos_other)
                             # ~ print ('old_pos', old_pos)
                             addCom = False
@@ -201,6 +213,7 @@ def printFootPositionRelativeToOther(nbConfigs):
 
             fullBody.setCurrentConfig(q)
             com = array(fullBody.getCenterOfMass())
+            print ('com ', com)
             # ~ for x in range(0, 3):
                 # ~ q[x] = -com[x]
             for j, effectorName in enumerate(effectors):
@@ -224,6 +237,7 @@ def printFootPositionRelativeToOther(nbConfigs):
 
                 if (rp[2] < MIN_HEIGHT_COM):
                     addCom = False
+                    print ("reject min heught")
                 if addCom:
                     compoints[j].append(rp)
                     # ~ if j == 1:

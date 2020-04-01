@@ -19,7 +19,8 @@ def decimate(obj):
     return 
 
 def load_obj(file):
-    bpy.ops.import_scene.obj(filepath=FOLDER_PATH+file, axis_forward='X', axis_up='Z')
+    # ~ bpy.ops.import_scene.obj(filepath=FOLDER_PATH+file, axis_forward='X', axis_up='Z')
+    bpy.ops.import_scene.obj(filepath=FOLDER_PATH+file)
 
     obj = bpy.data.objects[-1]
 
@@ -41,10 +42,11 @@ def load_obj(file):
     use_mesh_modifiers=True, use_edges=True, 
     use_smooth_groups=False, use_smooth_groups_bitflags=False, 
     use_normals=True, use_uvs=True, use_materials=False, 
-    use_triangles=True, use_nurbs=False, 
+    use_triangles=False, use_nurbs=False, 
     use_vertex_groups=False, use_blen_objects=True,
     group_by_object=False, group_by_material=False, keep_vertex_order=False,
-     global_scale=1.0, path_mode='AUTO', axis_forward='X', axis_up='Z')
+     # ~ global_scale=1.0, path_mode='AUTO', axis_forward='X', axis_up='Z')
+     global_scale=1.0, path_mode='AUTO')
      
     #delete all objects
     bpy.ops.object.delete()  
