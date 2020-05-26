@@ -23,7 +23,7 @@ import numpy as np
 class Robot (Parent):
     ##
     #  Information to retrieve urdf and srdf files.
-
+    name = "anymal"
     packageName = "anymal_data"
     meshPackageName = "anymal_data"
     rootJointType = "freeflyer"
@@ -129,12 +129,10 @@ class Robot (Parent):
 
     kneeIds = {"LF":9,"LH":12,"RF":15,"RH":18}
 
-    def __init__ (self, name = None,load = True):
-        Parent.__init__ (self,load)
-        if load:
-            self.loadFullBodyModel(self.urdfName, self.rootJointType, self.meshPackageName, self.packageName, self.urdfSuffix, self.srdfSuffix)
-        if name != None:
+    def __init__(self, name=None, load=True, client=None, clientRbprm=None):
+        if name is not None:
             self.name = name
+        Parent.__init__(self, self.name, self.rootJointType, load, client, None, clientRbprm)
         # save original bounds of the urdf for futur reset
         self.LF_HAA_bounds = self.getJointBounds('LF_HAA')
         self.LF_HFE_bounds = self.getJointBounds('LF_HFE')
@@ -166,7 +164,21 @@ class Robot (Parent):
             print("add limb : ",id)
             eff = self.dict_limb_joint[id]
             print("effector name = ",eff)
-            self.addLimb(id,self.dict_limb_rootJoint[id],eff,self.dict_offset[eff].translation.tolist(),self.dict_normal[eff],self.dict_size[eff][0]/2.,self.dict_size[eff][1]/2.,nbSamples,dict_heuristic[id],octreeSize,self.cType,disableEffectorCollision = disableEffectorCollision,kinematicConstraintsPath=self.kinematicConstraintsPath+self.dict_limb_rootJoint[id]+"_06_com_constraints.obj",limbOffset=self.dict_limb_offset[id],kinematicConstraintsMin=self.minDist)
+            self.addLimb(id,
+                         self.dict_limb_rootJoint[id],
+                         eff,
+                         self.dict_offset[eff].translation.tolist(),
+                         self.dict_normal[eff],
+                         self.dict_size[eff][0]/2.,
+                         self.dict_size[eff][1]/2.,
+                         nbSamples,
+                         dict_heuristic[id],
+                         octreeSize,
+                         self.cType,
+                         disableEffectorCollision = disableEffectorCollision,
+                         kinematicConstraintsPath=self.kinematicConstraintsPath+self.dict_limb_rootJoint[id]+"_06_com_constraints.obj",
+                         limbOffset=self.dict_limb_offset[id],
+                         kinematicConstraintsMin=self.minDist)
             if analysis :
                 self.runLimbSampleAnalysis(id, analysis, True)
 

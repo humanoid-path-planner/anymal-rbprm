@@ -30,6 +30,9 @@ class Robot (Parent):
     urdfNameRom = ['anymal_RFleg_rom','anymal_LHleg_rom','anymal_LFleg_rom','anymal_RHleg_rom']
     urdfSuffix = ""
     srdfSuffix = ""
+    name = urdfName
+
+    ref_height = 0.465
 
     # TODO
     ref_EE_lLeg =[0.373, 0.264, -0.448]
@@ -41,12 +44,10 @@ class Robot (Parent):
     #ref_EE_lArm = [-0.3, 0.165 , -0.44]
     #ref_EE_rArm = [-0.3, -0.165 , -0.44]
 
-    def __init__ (self, name = None, load = True):
-        Parent.__init__ (self,load)
-        if load:
-            self.loadModel(self.urdfName, self.urdfNameRom, self.rootJointType, self.meshPackageName, self.packageName, self.urdfSuffix, self.srdfSuffix)
-        if name != None:
+    def __init__(self, name=None, load=True, client=None, clientRbprm=None):
+        if name is not None:
             self.name = name
+        Parent.__init__(self, self.name, self.rootJointType, load, client, None, clientRbprm)
         self.setReferenceEndEffector('anymal_LFleg_rom',self.ref_EE_lLeg)
         self.setReferenceEndEffector('anymal_RFleg_rom',self.ref_EE_rLeg)
         self.setReferenceEndEffector('anymal_LHleg_rom',self.ref_EE_lArm)
