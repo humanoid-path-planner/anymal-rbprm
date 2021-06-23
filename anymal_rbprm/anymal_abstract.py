@@ -35,6 +35,13 @@ class Robot (Parent):
     ref_height = 0.465
 
     # TODO
+    
+    
+    rLegId = 'anymal_RFleg_rom'
+    lLegId = 'anymal_LFleg_rom'
+    rArmId = 'anymal_RHleg_rom'
+    lArmId = 'anymal_LHleg_rom'
+    
     ref_EE_lLeg =[0.373, 0.264, -0.448]
     ref_EE_rLeg = [0.373, -0.264, -0.448]
     ref_EE_lArm = [-0.373, 0.264, -0.448]
@@ -43,6 +50,11 @@ class Robot (Parent):
     #ref_EE_rLeg = [0.3, -0.165 , -0.44]
     #ref_EE_lArm = [-0.3, 0.165 , -0.44]
     #ref_EE_rArm = [-0.3, -0.165 , -0.44]
+    
+    dict_ref_effector_from_root = {rLegId:ref_EE_rLeg, 
+                                   lLegId:ref_EE_lLeg,
+                                   rArmId:ref_EE_rArm,
+                                   lArmId:ref_EE_lArm}
 
     def __init__(self, name=None, load=True, client=None, clientRbprm=None):
         if name is not None:

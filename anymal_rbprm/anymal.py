@@ -47,6 +47,16 @@ class Robot (Parent):
     rhand = 'RH_ADAPTER_TO_FOOT'
 
     
+    ref_EE_lLeg =[0.373, 0.264, -0.448]
+    ref_EE_rLeg = [0.373, -0.264, -0.448]
+    ref_EE_lArm = [-0.373, 0.264, -0.448]
+    ref_EE_rArm = [-0.373, -0.264, -0.448]
+    
+    dict_ref_effector_from_root = {rLegId:ref_EE_rLeg, 
+                                   lLegId:ref_EE_lLeg,
+                                   rArmId:ref_EE_rArm,
+                                   lArmId:ref_EE_lArm}
+    
     referenceConfig_asymetric =[0.,0.,0.461, 0.,0.,0.,1., # FF
         0.0, 0.611, -1.0452,
         0.0, -0.853, 1.0847,
