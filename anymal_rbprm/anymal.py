@@ -19,6 +19,11 @@
 from hpp.corbaserver.rbprm.rbprmfullbody import FullBody as Parent
 from pinocchio import SE3, Quaternion
 import numpy as np
+from pathlib import Path
+
+def prefix(module):
+    """$prefix/lib/pythonX.Y/site-packages/$module/__init__.py: extract prefix from module"""
+    return Path(module.__file__).parent.parent.parent.parent.parent
 
 class Robot (Parent):
     ##
@@ -96,8 +101,10 @@ class Robot (Parent):
     lArmLimbOffset = [-0.373, 0.264, 0.]
     normal = [0,0,1]
     legx = 0.02; legy = 0.02
-    kinematic_constraints_path="package://anymal-rbprm/com_inequalities/"
-
+    import anymal_rbprm
+    kinematic_constraints_path     = str(prefix(anymal_rbprm) /  "share/anymal-rbprm/com_inequalities/feet_quasi_flat/anymal_")
+    relative_feet_constraints_path = str(prefix(anymal_rbprm) /  "share/anymal-rbprm/relative_effector_positions/anymal_")
+    
     minDist = 0.2
     
     dict_ref_effector_from_root = {rLegId:rLegLimbOffset,  lLegId:lLegLimbOffset, rArmId:rArmLimbOffset, lArmId:lArmLimbOffset}
