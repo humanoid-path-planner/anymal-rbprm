@@ -96,7 +96,7 @@ class Robot (Parent):
     lArmLimbOffset = [-0.373, 0.264, 0.]
     normal = [0,0,1]
     legx = 0.02; legy = 0.02
-    kinematicConstraintsPath="package://anymal-rbprm/com_inequalities/"
+    kinematic_constraints_path="package://anymal-rbprm/com_inequalities/"
 
     minDist = 0.2
     
