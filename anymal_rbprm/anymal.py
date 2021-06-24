@@ -24,11 +24,11 @@ class Robot (Parent):
     ##
     #  Information to retrieve urdf and srdf files.
     name = "anymal"
-    packageName = "anymal_data"
-    meshPackageName = "anymal_data"
+    packageName = "example-robot-data/robots/anymal_b_simple_description"
+    meshPackageName = "example-robot-data/robots/anymal_b_simple_description"
     rootJointType = "freeflyer"
     urdfName = "anymal"
-    urdfSuffix = "_small_collision_feet"
+    urdfSuffix = ""
     #urdfSuffix="_ORI"
     srdfSuffix = ""
 
@@ -46,16 +46,6 @@ class Robot (Parent):
     rarm = 'RH_HAA'
     rhand = 'RH_ADAPTER_TO_FOOT'
 
-    
-    ref_EE_lLeg =[0.373, 0.264, -0.448]
-    ref_EE_rLeg = [0.373, -0.264, -0.448]
-    ref_EE_lArm = [-0.373, 0.264, -0.448]
-    ref_EE_rArm = [-0.373, -0.264, -0.448]
-    
-    dict_ref_effector_from_root = {rLegId:ref_EE_rLeg, 
-                                   lLegId:ref_EE_lLeg,
-                                   rArmId:ref_EE_rArm,
-                                   lArmId:ref_EE_lArm}
     
     referenceConfig_asymetric =[0.,0.,0.461, 0.,0.,0.,1., # FF
         0.0, 0.611, -1.0452,
@@ -100,15 +90,18 @@ class Robot (Parent):
     cType = "_3_DOF"
     offset = [0.,0.,-0.005] # was 0.005
 
-    rLegLimbOffset = [0.373, 0.264, 0.]
-    lLegLimbOffset = [0.373, -0.264,0.]
-    rArmLimbOffset = [-0.373, 0.264, 0.]
-    lArmLimbOffset = [-0.373, -0.264, 0.]
+    rLegLimbOffset = [0.373, -0.264, 0.]
+    lLegLimbOffset = [0.373, 0.264,0.]
+    rArmLimbOffset = [-0.373, -0.264, 0.]
+    lArmLimbOffset = [-0.373, 0.264, 0.]
     normal = [0,0,1]
     legx = 0.02; legy = 0.02
     kinematicConstraintsPath="package://anymal-rbprm/com_inequalities/"
 
     minDist = 0.2
+    
+    dict_ref_effector_from_root = {rLegId:rLegLimbOffset,  lLegId:lLegLimbOffset, rArmId:rArmLimbOffset, lArmId:lArmLimbOffset}
+
 
     # data used by scripts :,,,
     #limbs_names = [rArmId,lLegId,lArmId,rLegId] # reverse default order to try to remove contacts at the beginning of the contact plan
