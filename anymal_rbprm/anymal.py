@@ -95,10 +95,10 @@ class Robot (Parent):
     cType = "_3_DOF"
     offset = [0.,0.,-0.005] # was 0.005
 
-    rLegLimbOffset = [0.373, -0.264, 0.]
-    lLegLimbOffset = [0.373, 0.264,0.]
-    rArmLimbOffset = [-0.373, -0.264, 0.]
-    lArmLimbOffset = [-0.373, 0.264, 0.]
+    rLegLimbOffset = [0.373, -0.264, -0.448]
+    lLegLimbOffset = [0.373, 0.264,-0.448]
+    rArmLimbOffset = [-0.373, -0.264, -0.448]
+    lArmLimbOffset = [-0.373, 0.264, -0.448]
     normal = [0,0,1]
     legx = 0.02; legy = 0.02
     import anymal_rbprm
