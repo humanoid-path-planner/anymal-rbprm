@@ -19,16 +19,21 @@
 from hpp.corbaserver.rbprm.rbprmfullbody import FullBody as Parent
 from pinocchio import SE3, Quaternion
 import numpy as np
+from pathlib import Path
+
+def prefix(module):
+    """$prefix/lib/pythonX.Y/site-packages/$module/__init__.py: extract prefix from module"""
+    return Path(module.__file__).parent.parent.parent.parent.parent
 
 class Robot (Parent):
     ##
     #  Information to retrieve urdf and srdf files.
     name = "anymal"
-    packageName = "anymal_data"
-    meshPackageName = "anymal_data"
+    packageName = "example-robot-data/robots/anymal_b_simple_description"
+    meshPackageName = "example-robot-data/robots/anymal_b_simple_description"
     rootJointType = "freeflyer"
     urdfName = "anymal"
-    urdfSuffix = "_small_collision_feet"
+    urdfSuffix = ""
     #urdfSuffix="_ORI"
     srdfSuffix = ""
 
@@ -90,15 +95,20 @@ class Robot (Parent):
     cType = "_3_DOF"
     offset = [0.,0.,-0.005] # was 0.005
 
-    rLegLimbOffset = [0.373, 0.264, 0.]
-    lLegLimbOffset = [0.373, -0.264,0.]
-    rArmLimbOffset = [-0.373, 0.264, 0.]
-    lArmLimbOffset = [-0.373, -0.264, 0.]
+    rLegLimbOffset = [0.373, -0.264, -0.448]
+    lLegLimbOffset = [0.373, 0.264,-0.448]
+    rArmLimbOffset = [-0.373, -0.264, -0.448]
+    lArmLimbOffset = [-0.373, 0.264, -0.448]
     normal = [0,0,1]
     legx = 0.02; legy = 0.02
-    kinematicConstraintsPath="package://anymal-rbprm/com_inequalities/"
-
+    import anymal_rbprm
+    kinematic_constraints_path     = str(prefix(anymal_rbprm) /  "share/anymal-rbprm/com_inequalities/feet_quasi_flat/anymal_")
+    relative_feet_constraints_path = str(prefix(anymal_rbprm) /  "share/anymal-rbprm/relative_effector_positions/anymal_")
+    
     minDist = 0.2
+    
+    dict_ref_effector_from_root = {rLegId:rLegLimbOffset,  lLegId:lLegLimbOffset, rArmId:rArmLimbOffset, lArmId:lArmLimbOffset}
+
 
     # data used by scripts :,,,
     #limbs_names = [rArmId,lLegId,lArmId,rLegId] # reverse default order to try to remove contacts at the beginning of the contact plan
