@@ -1,6 +1,6 @@
 <?xml version='1.0'?>
-<package format='2'>
-    <name>anymal-rbprm</name>
+<package format='3'>
+    <name>anymal_rbprm</name>
     <version>4.12.0</version>
     <description>Database for anymal robot using hpp-rbprm</description>
 
@@ -10,5 +10,10 @@
     <author>Pierre Fernbach</author>
     <author>Steve Tonneau</author>
 
-    <buildtool_depend>catkin</buildtool_depend>
+    <!-- The following tags are recommended by REP-136 -->
+    <exec_depend condition="$ROS_VERSION == 1">catkin</exec_depend>
+    <buildtool_depend>cmake</buildtool_depend>
+    <export>
+        <build_type>cmake</build_type>
+    </export>
 </package>
