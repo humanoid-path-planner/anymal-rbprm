@@ -19,12 +19,6 @@
 from hpp.corbaserver.rbprm.rbprmfullbody import FullBody as Parent
 from pinocchio import SE3
 import numpy as np
-from pathlib import Path
-
-
-def prefix(module):
-    """$prefix/lib/pythonX.Y/site-packages/$module/__init__.py: extract prefix from module"""
-    return Path(module.__file__).parent.parent.parent.parent.parent
 
 
 class Robot(Parent):
@@ -131,9 +125,9 @@ class Robot(Parent):
     legy = 0.02
     import anymal_rbprm
     kinematic_constraints_path = str(
-        prefix(anymal_rbprm) / "share/anymal-rbprm/com_inequalities/feet_quasi_flat/anymal_")
+        anymal_rbprm.prefix() / "share/anymal-rbprm/com_inequalities/feet_quasi_flat/anymal_")
     relative_feet_constraints_path = str(
-        prefix(anymal_rbprm) / "share/anymal-rbprm/relative_effector_positions/anymal_")
+        anymal_rbprm.prefix() / "share/anymal-rbprm/relative_effector_positions/anymal_")
 
     minDist = 0.2
 
