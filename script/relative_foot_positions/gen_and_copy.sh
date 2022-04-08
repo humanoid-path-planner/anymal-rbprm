@@ -1,4 +1,4 @@
-#!/bin/bash         
+#!/bin/bash
 
 cd /media/data/dev/linux/hpp/src/anymal-rbprm/script/relative_foot_positions;
 ./run.sh relativeFootPositionQuasiFlat.py

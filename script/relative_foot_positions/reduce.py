@@ -7,8 +7,10 @@ import os
 #
 
 # change those parameters according to your needs
-TARGET_NUM_FACES = 24.
-FOLDER_PATH = "/media/data/dev/linux/hpp/src/anymal-rbprm/script/relative_foot_positions/"
+TARGET_NUM_FACES = 24.0
+FOLDER_PATH = (
+    "/media/data/dev/linux/hpp/src/anymal-rbprm/script/relative_foot_positions/"
+)
 OUTPUT_PATH = FOLDER_PATH + "output/"
 
 EXTENSION = ".obj"
@@ -22,7 +24,7 @@ def decimate(obj):
 
 
 def load_obj(file):
-    # ~ bpy.ops.import_scene.obj(filepath=FOLDER_PATH+file, axis_forward='X', axis_up='Z')
+    # bpy.ops.import_scene.obj(filepath=FOLDER_PATH+file, axis_forward='X', axis_up='Z')
     bpy.ops.import_scene.obj(filepath=FOLDER_PATH + file)
 
     obj = bpy.data.objects[-1]
@@ -31,9 +33,9 @@ def load_obj(file):
     # bpy.context.scene.objects.active = obj
     bpy.context.view_layer.objects.active = obj
     bpy.ops.object.editmode_toggle()
-    bpy.ops.mesh.delete(type='EDGE_FACE')
+    bpy.ops.mesh.delete(type="EDGE_FACE")
     bpy.ops.mesh.select_mode(type="VERT")
-    bpy.ops.mesh.select_all(action='SELECT')
+    bpy.ops.mesh.select_all(action="SELECT")
     bpy.ops.mesh.convex_hull()
     decimate(obj)
 
@@ -62,13 +64,14 @@ def load_obj(file):
         keep_vertex_order=False,
         # ~ global_scale=1.0, path_mode='AUTO', axis_forward='X', axis_up='Z')
         global_scale=1.0,
-        path_mode='AUTO')
+        path_mode="AUTO",
+    )
 
     # delete all objects
     bpy.ops.object.delete()
 
 
-bpy.ops.object.select_all(action='SELECT')
+bpy.ops.object.select_all(action="SELECT")
 bpy.ops.object.delete()
 
 os.chdir(FOLDER_PATH)

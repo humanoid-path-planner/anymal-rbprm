@@ -1,4 +1,5 @@
 import numpy as np
+
 # from hpp_centroidal_dynamics import *
 # from hpp_spline import *
 from numpy import array
@@ -8,6 +9,7 @@ from constants_and_tools import genPolytope
 import matplotlib.pyplot as plt
 
 from scipy.spatial import ConvexHull
+
 # from hpp_bezier_com_traj import *
 # from qp import solve_lp
 
@@ -23,7 +25,9 @@ def plot_hull_in_subplot(hull, pts, apts, ax, color="r", just_pts=False):
             ax.plot(apts[s, 0], apts[s, 1], apts[s, 2], color + "-")
 
 
-def plot_hull(hull, pts, apts, color="r", just_pts=False, plot=False, fig=None, ax=None):
+def plot_hull(
+    hull, pts, apts, color="r", just_pts=False, plot=False, fig=None, ax=None
+):
     if fig is None:
         fig = plt.figure()
     if ax is None:
@@ -44,7 +48,7 @@ def plot_polytope_H_rep(A_in, b_in, color="r", just_pts=False):
 def plot_polytope_V_rep(pts, color="r", just_pts=False):
     pts = [array(el) for el in pts]
     apts = array(pts)
-    hull = ConvexHull(apts, qhull_options='Q12')
+    hull = ConvexHull(apts, qhull_options="Q12")
     plot_hull(hull, pts, apts, color, just_pts)
 
 

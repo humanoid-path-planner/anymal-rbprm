@@ -34,27 +34,27 @@ class Robot(Parent):
     srdfSuffix = ""
 
     # Information about the names of thes joints defining the limbs of the robot
-    rLegId = 'RFleg'
-    rleg = 'RF_HAA'
-    rfoot = 'RF_ADAPTER_TO_FOOT'
-    lLegId = 'LFleg'
-    lleg = 'LF_HAA'
-    lfoot = 'LF_ADAPTER_TO_FOOT'
-    lArmId = 'LHleg'
-    larm = 'LH_HAA'
-    lhand = 'LH_ADAPTER_TO_FOOT'
-    rArmId = 'RHleg'
-    rarm = 'RH_HAA'
-    rhand = 'RH_ADAPTER_TO_FOOT'
+    rLegId = "RFleg"
+    rleg = "RF_HAA"
+    rfoot = "RF_ADAPTER_TO_FOOT"
+    lLegId = "LFleg"
+    lleg = "LF_HAA"
+    lfoot = "LF_ADAPTER_TO_FOOT"
+    lArmId = "LHleg"
+    larm = "LH_HAA"
+    lhand = "LH_ADAPTER_TO_FOOT"
+    rArmId = "RHleg"
+    rarm = "RH_HAA"
+    rhand = "RH_ADAPTER_TO_FOOT"
 
     referenceConfig_asymetric = [
-        0.,
-        0.,
+        0.0,
+        0.0,
         0.461,
-        0.,
-        0.,
-        0.,
-        1.,  # FF
+        0.0,
+        0.0,
+        0.0,
+        1.0,  # FF
         0.0,
         0.611,
         -1.0452,
@@ -85,7 +85,25 @@ class Robot(Parent):
        ]
     """
     referenceConfig = [
-        0, 0, 0.47, 0, 0, 0, 1, -0.12, 0.724, -1.082, -0.12, -0.724, 1.082, 0.12, 0.724, -1.082, 0.12, -0.724, 1.082
+        0,
+        0,
+        0.47,
+        0,
+        0,
+        0,
+        1,
+        -0.12,
+        0.724,
+        -1.082,
+        -0.12,
+        -0.724,
+        1.082,
+        0.12,
+        0.724,
+        -1.082,
+        0.12,
+        -0.724,
+        1.082,
     ]
     postureWeights = [
         0,
@@ -94,18 +112,18 @@ class Robot(Parent):
         0,
         0,
         0,  # FF
-        100.,
-        1.,
-        20.,
-        100.,
-        1.,
-        20.,
-        100.,
-        1.,
-        20.,
-        100.,
-        1.,
-        20.,
+        100.0,
+        1.0,
+        20.0,
+        100.0,
+        1.0,
+        20.0,
+        100.0,
+        1.0,
+        20.0,
+        100.0,
+        1.0,
+        20.0,
     ]
 
     DEFAULT_COM_HEIGHT = 0.445
@@ -114,7 +132,7 @@ class Robot(Parent):
     nbSamples = 50000
     octreeSize = 0.002
     cType = "_3_DOF"
-    offset = [0., 0., -0.005]  # was 0.005
+    offset = [0.0, 0.0, -0.005]  # was 0.005
 
     rLegLimbOffset = [0.373, -0.264, -0.448]
     lLegLimbOffset = [0.373, 0.264, -0.448]
@@ -124,10 +142,14 @@ class Robot(Parent):
     legx = 0.02
     legy = 0.02
     import anymal_rbprm
+
     kinematic_constraints_path = str(
-        anymal_rbprm.prefix() / "share/anymal-rbprm/com_inequalities/feet_quasi_flat/anymal_")
+        anymal_rbprm.prefix()
+        / "share/anymal-rbprm/com_inequalities/feet_quasi_flat/anymal_"
+    )
     relative_feet_constraints_path = str(
-        anymal_rbprm.prefix() / "share/anymal-rbprm/relative_effector_positions/anymal_")
+        anymal_rbprm.prefix() / "share/anymal-rbprm/relative_effector_positions/anymal_"
+    )
 
     minDist = 0.2
 
@@ -135,164 +157,203 @@ class Robot(Parent):
         rLegId: rLegLimbOffset,
         lLegId: lLegLimbOffset,
         rArmId: rArmLimbOffset,
-        lArmId: lArmLimbOffset
+        lArmId: lArmLimbOffset,
     }
 
     # data used by scripts :,,,
     # limbs_names = [rArmId,lLegId,lArmId,rLegId]
-    # reverse default order to try to remove contacts at the beginning of the contact plan
+    # reverse default order to try to remove contacts
+    # at the beginning of the contact plan
     # limbs_names = [lLegId,rArmId,rLegId,lArmId]
     # default order to try to remove contacts at the beginning of the contact plan
     limbs_names = [rArmId, rLegId, lArmId, lLegId]
     dict_limb_rootJoint = {rLegId: rleg, lLegId: lleg, rArmId: rarm, lArmId: larm}
     dict_limb_joint = {rLegId: rfoot, lLegId: lfoot, rArmId: rhand, lArmId: lhand}
-    dict_limb_color_traj = {rfoot: [0, 1, 0, 1], lfoot: [1, 0, 0, 1], rhand: [0, 0, 1, 1], lhand: [0.9, 0.5, 0, 1]}
+    dict_limb_color_traj = {
+        rfoot: [0, 1, 0, 1],
+        lfoot: [1, 0, 0, 1],
+        rhand: [0, 0, 1, 1],
+        lhand: [0.9, 0.5, 0, 1],
+    }
     FOOT_SAFETY_SIZE = 0.01
     # size of the contact surface (x,y)
-    dict_size = {rfoot: [0.01, 0.01], lfoot: [0.01, 0.01], rhand: [0.01, 0.01], lhand: [0.01, 0.01]}
-    # dict_size={rfoot:[0.01 , 0.01], lfoot:[0.01 , 0.01],rhand:[0.01 , 0.01],lhand:[0.01 , 0.01]}
+    dict_size = {
+        rfoot: [0.01, 0.01],
+        lfoot: [0.01, 0.01],
+        rhand: [0.01, 0.01],
+        lhand: [0.01, 0.01],
+    }
+    # dict_size={rfoot:[0.01 , 0.01], lfoot:[0.01 , 0.01],
+    #            rhand:[0.01 , 0.01],lhand:[0.01 , 0.01]}
     # various offset used by scripts
     MRsole_offset = SE3.Identity()
     MRsole_offset.translation = np.matrix(offset).T
     MLsole_offset = MRsole_offset.copy()
     MRhand_offset = MRsole_offset.copy()
     MLhand_offset = MRsole_offset.copy()
-    dict_offset = {rfoot: MRsole_offset, lfoot: MLsole_offset, rhand: MRhand_offset, lhand: MLhand_offset}
-    dict_limb_offset = {rLegId: rLegLimbOffset, lLegId: lLegLimbOffset, rArmId: rArmLimbOffset, lArmId: lArmLimbOffset}
+    dict_offset = {
+        rfoot: MRsole_offset,
+        lfoot: MLsole_offset,
+        rhand: MRhand_offset,
+        lhand: MLhand_offset,
+    }
+    dict_limb_offset = {
+        rLegId: rLegLimbOffset,
+        lLegId: lLegLimbOffset,
+        rArmId: rArmLimbOffset,
+        lArmId: lArmLimbOffset,
+    }
     dict_normal = {rfoot: normal, lfoot: normal, rhand: normal, lhand: normal}
     # display transform :
     MRsole_display = SE3.Identity()
     MLsole_display = SE3.Identity()
     MRhand_display = SE3.Identity()
     MLhand_display = SE3.Identity()
-    dict_display_offset = {rfoot: MRsole_display, lfoot: MLsole_display, rhand: MRhand_display, lhand: MLhand_display}
+    dict_display_offset = {
+        rfoot: MRsole_display,
+        lfoot: MLsole_display,
+        rhand: MRhand_display,
+        lhand: MLhand_display,
+    }
 
     kneeIds = {"LF": 9, "LH": 12, "RF": 15, "RH": 18}
 
     def __init__(self, name=None, load=True, client=None, clientRbprm=None):
         if name is not None:
             self.name = name
-        Parent.__init__(self, self.name, self.rootJointType, load, client, None, clientRbprm)
+        Parent.__init__(
+            self, self.name, self.rootJointType, load, client, None, clientRbprm
+        )
         # save original bounds of the urdf for futur reset
-        self.LF_HAA_bounds = self.getJointBounds('LF_HAA')
-        self.LF_HFE_bounds = self.getJointBounds('LF_HFE')
-        self.LF_KFE_bounds = self.getJointBounds('LF_KFE')
+        self.LF_HAA_bounds = self.getJointBounds("LF_HAA")
+        self.LF_HFE_bounds = self.getJointBounds("LF_HFE")
+        self.LF_KFE_bounds = self.getJointBounds("LF_KFE")
 
-        self.RF_HAA_bounds = self.getJointBounds('RF_HAA')
-        self.RF_HFE_bounds = self.getJointBounds('RF_HFE')
-        self.RF_KFE_bounds = self.getJointBounds('RF_KFE')
+        self.RF_HAA_bounds = self.getJointBounds("RF_HAA")
+        self.RF_HFE_bounds = self.getJointBounds("RF_HFE")
+        self.RF_KFE_bounds = self.getJointBounds("RF_KFE")
 
-        self.LH_HAA_bounds = self.getJointBounds('LH_HAA')
-        self.LH_HFE_bounds = self.getJointBounds('LH_HFE')
-        self.LH_KFE_bounds = self.getJointBounds('LH_KFE')
+        self.LH_HAA_bounds = self.getJointBounds("LH_HAA")
+        self.LH_HFE_bounds = self.getJointBounds("LH_HFE")
+        self.LH_KFE_bounds = self.getJointBounds("LH_KFE")
 
-        self.RH_HAA_bounds = self.getJointBounds('RH_HAA')
-        self.RH_HFE_bounds = self.getJointBounds('RH_HFE')
-        self.RH_KFE_bounds = self.getJointBounds('RH_KFE')
+        self.RH_HAA_bounds = self.getJointBounds("RH_HAA")
+        self.RH_HFE_bounds = self.getJointBounds("RH_HFE")
+        self.RH_KFE_bounds = self.getJointBounds("RH_KFE")
 
-    def loadAllLimbs(self,
-                     heuristic,
-                     analysis=None,
-                     nbSamples=nbSamples,
-                     octreeSize=octreeSize,
-                     disableEffectorCollision=False):
-        if isinstance(heuristic, str):  # only one heuristic name given assign it to all the limbs
+    def loadAllLimbs(
+        self,
+        heuristic,
+        analysis=None,
+        nbSamples=nbSamples,
+        octreeSize=octreeSize,
+        disableEffectorCollision=False,
+    ):
+        if isinstance(
+            heuristic, str
+        ):  # only one heuristic name given assign it to all the limbs
             dict_heuristic = {}
             for id in self.limbs_names:
                 dict_heuristic.update({id: heuristic})
         elif isinstance(heuristic, dict):
             dict_heuristic = heuristic
         else:
-            raise Exception("heuristic should be either a string or a map limbId:string")
-        # dict_heuristic = {self.rLegId:"static", self.lLegId:"static", self.rArmId:"fixedStep04",
+            raise Exception(
+                "heuristic should be either a string or a map limbId:string"
+            )
+        # dict_heuristic = {self.rLegId:"static", self.lLegId:"static",
+        #                   self.rArmId:"fixedStep04",
         # self.lArmId:"fixedStep04"}
         for id in self.limbs_names:
             print("add limb : ", id)
             eff = self.dict_limb_joint[id]
             print("effector name = ", eff)
-            self.addLimb(id,
-                         self.dict_limb_rootJoint[id],
-                         eff,
-                         self.dict_offset[eff].translation.tolist(),
-                         self.dict_normal[eff],
-                         self.dict_size[eff][0] / 2.,
-                         self.dict_size[eff][1] / 2.,
-                         nbSamples,
-                         dict_heuristic[id],
-                         octreeSize,
-                         self.cType,
-                         disableEffectorCollision=disableEffectorCollision,
-                         kinematicConstraintsPath=self.kinematicConstraintsPath + self.dict_limb_rootJoint[id] +
-                         "_06_com_constraints.obj",
-                         limbOffset=self.dict_limb_offset[id],
-                         kinematicConstraintsMin=self.minDist)
+            self.addLimb(
+                id,
+                self.dict_limb_rootJoint[id],
+                eff,
+                self.dict_offset[eff].translation.tolist(),
+                self.dict_normal[eff],
+                self.dict_size[eff][0] / 2.0,
+                self.dict_size[eff][1] / 2.0,
+                nbSamples,
+                dict_heuristic[id],
+                octreeSize,
+                self.cType,
+                disableEffectorCollision=disableEffectorCollision,
+                kinematicConstraintsPath=self.kinematicConstraintsPath
+                + self.dict_limb_rootJoint[id]
+                + "_06_com_constraints.obj",
+                limbOffset=self.dict_limb_offset[id],
+                kinematicConstraintsMin=self.minDist,
+            )
             if analysis:
                 self.runLimbSampleAnalysis(id, analysis, True)
 
     def setSlightlyConstrainedJointsBounds(self):
-        self.setJointBounds('LF_HAA', [-1., 1.])
-        self.setJointBounds('LF_HFE', [-0.25, 2.35])
-        self.setJointBounds('LF_KFE', [-2.35, 0.])
+        self.setJointBounds("LF_HAA", [-1.0, 1.0])
+        self.setJointBounds("LF_HFE", [-0.25, 2.35])
+        self.setJointBounds("LF_KFE", [-2.35, 0.0])
 
-        self.setJointBounds('RF_HAA', [-1., 1.])
-        self.setJointBounds('RF_HFE', [-0.4, 2.35])
-        self.setJointBounds('RF_KFE', [-2.35, 0.])
+        self.setJointBounds("RF_HAA", [-1.0, 1.0])
+        self.setJointBounds("RF_HFE", [-0.4, 2.35])
+        self.setJointBounds("RF_KFE", [-2.35, 0.0])
 
-        self.setJointBounds('LH_HAA', [-1., 1.])
-        self.setJointBounds('LH_HFE', [-2.35, 0.4])
-        self.setJointBounds('LH_KFE', [0., 2.35])
+        self.setJointBounds("LH_HAA", [-1.0, 1.0])
+        self.setJointBounds("LH_HFE", [-2.35, 0.4])
+        self.setJointBounds("LH_KFE", [0.0, 2.35])
 
-        self.setJointBounds('RH_HAA', [-1., 1.])
-        self.setJointBounds('RH_HFE', [-2.35, 0.25])
-        self.setJointBounds('RH_KFE', [0., 2.35])
+        self.setJointBounds("RH_HAA", [-1.0, 1.0])
+        self.setJointBounds("RH_HFE", [-2.35, 0.25])
+        self.setJointBounds("RH_KFE", [0.0, 2.35])
 
     def setConstrainedJointsBounds(self):
-        self.setJointBounds('LF_HAA', [-0.6, 0.6])
-        self.setJointBounds('LF_HFE', [0.25, 1.])
-        self.setJointBounds('LF_KFE', [-2.35, 0.])
+        self.setJointBounds("LF_HAA", [-0.6, 0.6])
+        self.setJointBounds("LF_HFE", [0.25, 1.0])
+        self.setJointBounds("LF_KFE", [-2.35, 0.0])
 
-        self.setJointBounds('RF_HAA', [-0.6, 0.6])
-        self.setJointBounds('RF_HFE', [0.25, 1.])
-        self.setJointBounds('RF_KFE', [-2.35, 0.])
+        self.setJointBounds("RF_HAA", [-0.6, 0.6])
+        self.setJointBounds("RF_HFE", [0.25, 1.0])
+        self.setJointBounds("RF_KFE", [-2.35, 0.0])
 
-        self.setJointBounds('LH_HAA', [-0.6, 0.6])
-        self.setJointBounds('LH_HFE', [-1.05, -0.45])
-        self.setJointBounds('LH_KFE', [0., 2.35])
+        self.setJointBounds("LH_HAA", [-0.6, 0.6])
+        self.setJointBounds("LH_HFE", [-1.05, -0.45])
+        self.setJointBounds("LH_KFE", [0.0, 2.35])
 
-        self.setJointBounds('RH_HAA', [-0.6, 0.6])
-        self.setJointBounds('RH_HFE', [-1.05, -0.45])
-        self.setJointBounds('RH_KFE', [0., 2.35])
+        self.setJointBounds("RH_HAA", [-0.6, 0.6])
+        self.setJointBounds("RH_HFE", [-1.05, -0.45])
+        self.setJointBounds("RH_KFE", [0.0, 2.35])
 
     def setVeryConstrainedJointsBounds(self):
-        self.setJointBounds('LF_HAA', [-0.35, 0.05])
-        self.setJointBounds('LF_HFE', [0.3, 0.95])
-        self.setJointBounds('LF_KFE', [-2.35, 0.])
+        self.setJointBounds("LF_HAA", [-0.35, 0.05])
+        self.setJointBounds("LF_HFE", [0.3, 0.95])
+        self.setJointBounds("LF_KFE", [-2.35, 0.0])
 
-        self.setJointBounds('RF_HAA', [-0.05, 0.35])
-        self.setJointBounds('RF_HFE', [0.3, 0.95])
-        self.setJointBounds('RF_KFE', [-2.35, 0.])
+        self.setJointBounds("RF_HAA", [-0.05, 0.35])
+        self.setJointBounds("RF_HFE", [0.3, 0.95])
+        self.setJointBounds("RF_KFE", [-2.35, 0.0])
 
-        self.setJointBounds('LH_HAA', [-0.35, 0.05])
-        self.setJointBounds('LH_HFE', [-1., -0.5])
-        self.setJointBounds('LH_KFE', [0., 2.35])
+        self.setJointBounds("LH_HAA", [-0.35, 0.05])
+        self.setJointBounds("LH_HFE", [-1.0, -0.5])
+        self.setJointBounds("LH_KFE", [0.0, 2.35])
 
-        self.setJointBounds('RH_HAA', [-0.05, 0.35])
-        self.setJointBounds('RH_HFE', [-1., -0.5])
-        self.setJointBounds('RH_KFE', [0., 2.35])
+        self.setJointBounds("RH_HAA", [-0.05, 0.35])
+        self.setJointBounds("RH_HFE", [-1.0, -0.5])
+        self.setJointBounds("RH_KFE", [0.0, 2.35])
 
     def resetJointsBounds(self):
-        self.setJointBounds('LF_HAA', self.LF_HAA_bounds)
-        self.setJointBounds('LF_HFE', self.LF_HFE_bounds)
-        self.setJointBounds('LF_KFE', self.LF_KFE_bounds)
+        self.setJointBounds("LF_HAA", self.LF_HAA_bounds)
+        self.setJointBounds("LF_HFE", self.LF_HFE_bounds)
+        self.setJointBounds("LF_KFE", self.LF_KFE_bounds)
 
-        self.setJointBounds('RF_HAA', self.RF_HAA_bounds)
-        self.setJointBounds('RF_HFE', self.RF_HFE_bounds)
-        self.setJointBounds('RF_KFE', self.RF_KFE_bounds)
+        self.setJointBounds("RF_HAA", self.RF_HAA_bounds)
+        self.setJointBounds("RF_HFE", self.RF_HFE_bounds)
+        self.setJointBounds("RF_KFE", self.RF_KFE_bounds)
 
-        self.setJointBounds('LH_HAA', self.LH_HAA_bounds)
-        self.setJointBounds('LH_HFE', self.LH_HFE_bounds)
-        self.setJointBounds('LH_KFE', self.LH_KFE_bounds)
+        self.setJointBounds("LH_HAA", self.LH_HAA_bounds)
+        self.setJointBounds("LH_HFE", self.LH_HFE_bounds)
+        self.setJointBounds("LH_KFE", self.LH_KFE_bounds)
 
-        self.setJointBounds('RH_HAA', self.RH_HAA_bounds)
-        self.setJointBounds('RH_HFE', self.RH_HFE_bounds)
-        self.setJointBounds('RH_KFE', self.RH_KFE_bounds)
+        self.setJointBounds("RH_HAA", self.RH_HAA_bounds)
+        self.setJointBounds("RH_HFE", self.RH_HFE_bounds)
+        self.setJointBounds("RH_KFE", self.RH_KFE_bounds)
