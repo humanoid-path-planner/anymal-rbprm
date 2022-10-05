@@ -1,36 +1,35 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 3.1)
+cmake_minimum_required(VERSION 3.1)
 
-SET(PROJECT_NAME anymal-rbprm)
-SET(PROJECT_DESCRIPTION "Database for anymal robot using hpp-rbprm")
-SET(PROJECT_URL "")
-SET(CUSTOM_HEADER_DIR "hpp/anymal-rbprm")
-SET(CXX_DISABLE_WERROR true)
-SET(PROJECT_USE_CMAKE_EXPORT TRUE)
+set(PROJECT_NAME anymal-rbprm)
+set(PROJECT_DESCRIPTION "Database for anymal robot using hpp-rbprm")
+set(PROJECT_URL "")
+set(CUSTOM_HEADER_DIR "hpp/anymal-rbprm")
+set(CXX_DISABLE_WERROR true)
+set(PROJECT_USE_CMAKE_EXPORT TRUE)
 
-INCLUDE(cmake/base.cmake)
-INCLUDE(cmake/python.cmake)
+include(cmake/base.cmake)
+include(cmake/python.cmake)
 
-COMPUTE_PROJECT_ARGS(PROJECT_ARGS LANGUAGES CXX)
-PROJECT(${PROJECT_NAME} ${PROJECT_ARGS})
+compute_project_args(PROJECT_ARGS LANGUAGES CXX)
+project(${PROJECT_NAME} ${PROJECT_ARGS})
 
-FINDPYTHON()
+findpython()
 
-ADD_LIBRARY(${PROJECT_NAME} INTERFACE)
-INSTALL(TARGETS ${PROJECT_NAME} EXPORT ${TARGETS_EXPORT_NAME} DESTINATION lib)
+add_library(${PROJECT_NAME} INTERFACE)
+install(
+  TARGETS ${PROJECT_NAME}
+  EXPORT ${TARGETS_EXPORT_NAME}
+  DESTINATION lib)
 
 install(DIRECTORY data/ DESTINATION share/${PROJECT_NAME})
 
-STRING(REGEX REPLACE "-" "_" PY_NAME ${PROJECT_NAME})
+string(REGEX REPLACE "-" "_" PY_NAME ${PROJECT_NAME})
 
-SET(${PROJECT_NAME}_PYTHON_FILES
-  __init__.py
-  anymal.py
-  anymal_abstract.py
-  anymal_contact6D.py
-  )
+set(${PROJECT_NAME}_PYTHON_FILES __init__.py anymal.py anymal_abstract.py
+                                 anymal_contact6D.py)
 
-FOREACH(SOURCE ${${PROJECT_NAME}_PYTHON_FILES})
-  PYTHON_INSTALL_ON_SITE(${PY_NAME} ${SOURCE})
-ENDFOREACH(SOURCE ${${PROJECT_NAME}_PYTHON_SOURCES})
+foreach(SOURCE ${${PROJECT_NAME}_PYTHON_FILES})
+  python_install_on_site(${PY_NAME} ${SOURCE})
+endforeach(SOURCE ${${PROJECT_NAME}_PYTHON_SOURCES})
 
-INSTALL(FILES package.xml DESTINATION share/${PROJECT_NAME})
+install(FILES package.xml DESTINATION share/${PROJECT_NAME})
