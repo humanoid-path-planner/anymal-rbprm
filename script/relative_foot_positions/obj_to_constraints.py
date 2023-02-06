@@ -146,7 +146,6 @@ def test_belonging():
 
 
 def test_rotate_inequalities():
-
     tr = np.array(
         [
             [1.0, 0.0, 0.0, 0.0],
