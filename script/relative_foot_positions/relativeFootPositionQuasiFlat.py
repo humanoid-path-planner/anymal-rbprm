@@ -324,7 +324,7 @@ for effector, limbId, comData, pointsData in zip(effectors, limbIds, compoints, 
     # ~ axes = [221,222,223,224]
     ax = None
     # ~ for (oEffector, pts), axId in zip(pointsData.items(), axes):
-    for (oEffector, pts) in pointsData.items():
+    for oEffector, pts in pointsData.items():
         # ~ ax = fig.add_subplot(axId, projection="3d")
         hpts = ConvexHull(pts)
         hull_to_obj(
