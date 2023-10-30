@@ -1,13 +1,13 @@
 # from numpy.linalg import norm
 # import numpy as np
-from numpy import array, zeros, ones
-from scipy.spatial import ConvexHull
-from scipy.optimize import linprog
-from hpp.gepetto import ViewerFactory
+from hpp.corbaserver import ProblemSolver
 from hpp.corbaserver.rbprm import rbprmstate, state_alg
 from hpp.corbaserver.rbprm.anymal import Robot
-from hpp.corbaserver import ProblemSolver
-from hpp.corbaserver.rbprm.tools.display_tools import hull_to_obj, plt, plot_hull
+from hpp.corbaserver.rbprm.tools.display_tools import hull_to_obj, plot_hull, plt
+from hpp.gepetto import ViewerFactory
+from numpy import array, ones, zeros
+from scipy.optimize import linprog
+from scipy.spatial import ConvexHull
 
 # from plot_polytopes import *
 # from pinocchio import Quaternion

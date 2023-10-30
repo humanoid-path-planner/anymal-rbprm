@@ -1,13 +1,10 @@
+import matplotlib.pyplot as plt
 import numpy as np
+from constants_and_tools import genPolytope
 
 # from hpp_centroidal_dynamics import *
 # from hpp_spline import *
 from numpy import array
-
-from constants_and_tools import genPolytope
-
-import matplotlib.pyplot as plt
-
 from scipy.spatial import ConvexHull
 
 # from hpp_bezier_com_traj import *

@@ -3,16 +3,15 @@
 #                                               as_inequalities, rotate_inequalities
 # from hpp_centroidal_dynamics import *
 # from hpp_spline import *e
-from numpy import array, matrix, zeros, ones, vstack, hstack, identity, concatenate
+# import eigenpy
+import cdd
 import numpy as np
-
+from numpy import array, concatenate, hstack, identity, matrix, ones, vstack, zeros
 from scipy.spatial import ConvexHull
 
 # from hpp_bezier_com_traj import *
 # from qp import solve_lp
 
-# import eigenpy
-import cdd
 
 # from curves import bezier3
 

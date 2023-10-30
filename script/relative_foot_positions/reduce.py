@@ -1,6 +1,7 @@
-import bpy
 import glob
 import os
+
+import bpy
 
 # this script is tested with blender 2.82
 # WARNING !! this script will erase your scene
