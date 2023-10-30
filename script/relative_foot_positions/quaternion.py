@@ -97,7 +97,7 @@ class Quaternion(object):
             else:
                 error = True
         elif len(args) == 1:
-            if type(args[0]) == Quaternion:  # From a Quaternion
+            if isinstance(args[0], Quaternion):  # From a Quaternion
                 self.array = args[0].array.copy()
             elif np.array(args[0]).size == 1:
                 # From one sized element, this element will be the scalar part,
@@ -222,7 +222,7 @@ class Quaternion(object):
         If other is not a quaternion it is casted to a quaternion,
         the elements are added one to one.
         """
-        if type(other) != Quaternion:
+        if not isinstance(other, Quaternion):
             q2 = Quaternion(other)
         else:
             q2 = other
@@ -233,7 +233,7 @@ class Quaternion(object):
         If other is not a quaternion it is casted to a quaternion,
         the elements are substracted one to one.
         """
-        if type(other) != Quaternion:
+        if not isinstance(other, Quaternion):
             q2 = Quaternion(other)
         else:
             q2 = other
@@ -244,7 +244,7 @@ class Quaternion(object):
         If other is not a quaternion it is casted to a quaternion,
         the result of the quaternion multiplication is returned.
         """
-        if type(other) != Quaternion:
+        if not isinstance(other, Quaternion):
             q2 = Quaternion(other)
         else:
             q2 = other
@@ -296,7 +296,7 @@ class Quaternion(object):
         the result of the quaternion multiplication with the inverse of other
         is returned.
         """
-        if type(other) != Quaternion:
+        if not isinstance(other, Quaternion):
             q2 = Quaternion(other)
         else:
             q2 = other
