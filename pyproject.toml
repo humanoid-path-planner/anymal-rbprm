@@ -1,5 +1,17 @@
-[tool.black]
-exclude = "cmake"
+[build-system]
+build-backend = "cmeel.build"
+requires = [
+  "cmeel[build]"
+]
+
+[project]
+description = "Database for anymal robot using hpp-rbprm"
+license = "BSD-2-Clause"
+name = "anymal-rbprm"
+version = "5.0.0"
+
+[tool.cmeel]
+has-binaries = false
 
 [tool.isort]
 profile = "black"
