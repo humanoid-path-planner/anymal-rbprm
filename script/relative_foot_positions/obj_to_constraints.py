@@ -108,7 +108,7 @@ def ineq_to_file(ineq, filename):
 
 
 def ineq_from_file(filename):
-    f1 = open(filename, "r")
+    f1 = open(filename)
     res = load(f1)
     return Inequalities(res["A"], res["b"], res["N"], res["V"])
 
@@ -158,8 +158,8 @@ def test_rotate_inequalities():
 
     data = __gen_data()
     ineq = rotate_inequalities(data[1], tr)
-    ok_points = [tr.dot(np.array(el + [1]))[0:3] for el in data[2]]
-    not_ok_points = [tr.dot(np.array(el + [1]))[0:3] for el in data[3]]
+    ok_points = [tr.dot(np.array([*el, 1]))[0:3] for el in data[2]]
+    not_ok_points = [tr.dot(np.array([*el, 1]))[0:3] for el in data[3]]
     for p in ok_points:
         assert is_inside(ineq, p), "point " + str(p) + " should be inside object"
     for p in not_ok_points:

@@ -125,10 +125,9 @@ def convex_hull_ineq(pts, cData=None, ineqFromCdata=None, gX=None, g=None, w=Non
     error = False
     for pt in allpts:
         print("pt ", pt)
-        assert (
-            resA.dot(pt.reshape((-1, 1))) - resb
-        ).max() < 0.001, "antecedent point not in End polytope" + str(
-            (resA.dot(pt.reshape((-1, 1))) - resb).max()
+        assert (resA.dot(pt.reshape((-1, 1))) - resb).max() < 0.001, (
+            "antecedent point not in End polytope"
+            + str((resA.dot(pt.reshape((-1, 1))) - resb).max())
         )
         if (H.dot(w(m, pt).reshape((-1, 1))) - h).max() > 0.001:
             error = True
