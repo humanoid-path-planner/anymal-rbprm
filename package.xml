@@ -1,7 +1,7 @@
 <?xml version='1.0'?>
 <package format='3'>
     <name>anymal_rbprm</name>
-    <version>4.15.1</version>
+    <version>5.0.0</version>
     <description>Database for anymal robot using hpp-rbprm</description>
 
     <maintainer email='guilhem.saurel@laas.fr'>Guilhem Saurel</maintainer>
